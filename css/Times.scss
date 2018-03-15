@@ -1,0 +1,109 @@
+---
+---
+
+$mutedblue: #607D8B;
+$bluegrey100: #CFD8DC;
+
+/* ---- Keha -------- */
+body {
+  max-width: 50em; margin: 0 0; 
+  padding: 1rem 1.5em 2em 2em; 
+  line-height: 1.5;
+  font-family: 'Libre Baskerville', serif;
+  color: #333;
+  font-size: 12pt; 
+  }
+
+/* ---- Paigutus ---- */
+#Container { display: flex; }
+
+/* Jaotisepealkiri */
+h1 { font-size: 140%;
+  line-height: 1.2;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem; }
+
+h2 { font-weight: bold; font-size: 100%; 
+  margin: 2rem 0 1rem 0; }    
+
+h3 { font-size: 12pt; font-style: italic; font-weight: normal;
+  line-height: 1.2; text-decoration: underline;
+  margin: 0.2em 0 0.2em 0; }   
+
+/* Tekstiparagrahv */
+p { margin: 0 0 1em 0; }
+
+/* Loetelud */
+#Tekst ul { list-style: none; margin: 0 0 1em 0;
+    padding-left: 1em; }
+#Tekst ul > li:before { display: inline-block;
+    content: "-"; width: 1em; margin-left: -1em; }
+
+/* Tabelid */
+table { table-layout: fixed;
+    width: 100%; margin: 0 4em 2em 0; }
+table { border-collapse: collapse; }
+table, th, td { border: 1px solid black; }
+
+/* Tekst */
+.s { font-size: 10pt; }
+
+/* TOC genereeritud */
+#markdown-toc { 
+  background-color: Azure;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid aquamarine; }
+#markdown-toc ul { list-style: none; margin: 0 !important;
+    padding-left: 0 !important; }
+#markdown-toc ul > li:before { display: inline-block;
+    content: none !important; width: 0 !important; margin-left: 0 !important; }
+#markdown-toc > li {
+  display: inline; 
+  list-style: none;
+  margin-bottom: 0.8rem;
+  margin-left: 1rem; 
+}
+
+/* Allkriipsutus */
+.u { text-decoration: underline; }
+
+/* Plokktsitaat */
+blockquote { 
+  font-style: italic; 
+  font-family: 'Cutive Mono', monospace;
+  font-size: 13pt;
+  margin-left: 0;
+}
+
+/* Kood; asciiflow joonised */
+pre, code, samp {
+  font-family: 'Cutive Mono', monospace;
+  font-size: 13pt; color: Gray;
+  background-color: honeydew;
+  overflow-y: hidden; overflow-x: hidden;
+  page-break-inside: avoid; hyphens: none;
+  text-transform: none;
+}
+pre code,
+code code {
+  font-size: 100%;
+}
+pre { margin-top: 1em; margin-bottom: 1em; }
+
+/* Lingid */
+a[href] {
+  color: $mutedblue;
+  text-decoration: none;
+  border-bottom: 1px dotted $mutedblue;
+}
+
+/* Joon */
+hr { color: gray; }
+
+/* Joonis */
+.joonis { color: gray;
+  border-top: 1px solid gray;
+  letter-spacing: 0.2pt;
+  font-size: 8pt; }

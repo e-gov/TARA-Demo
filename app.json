@@ -1,0 +1,8 @@
+{
+  "name": "Start on Heroku: Node.js",
+  "description": "Node.js client for TARA authentication service",
+  "repository": "https://github.com/PriitParmakson/TARA-Demo",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}
