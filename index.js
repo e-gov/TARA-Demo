@@ -11,12 +11,21 @@ const requestModule = require('request');
 const jwkToPem = require('jwk-to-pem');
 var jwt = require('jsonwebtoken');
 
+// TARA testteenuse URL-id
+const AV_VOTME_OTSPUNKT = 'https://tara-test.ria.ee/oidc/jwks';
+const AUTR_OTSPUNKT = 'https://tara-test.ria.ee/oidc/authorize?';
+const IDTOENDI_OTSPUNKT = 'https://tara-test.ria.ee/oidc/token';
+
+// Klientrakenduse TARA-Demo parameetrid
+const REDIRECT_URL = 'https://tarademo.herokuapp.com/Callback';
+const CLIENT_ID = 'ParmaksonResearch';
+
 // TARA-teenuse avalik võti PEM-vormingus
 var avalikVotiPEM;
 // Päri TARA-teenuse avalik võti. Eeldame, et päring
 // jõutakse teha enne, kui kasutaja nupule vajutab
 var options = {
-  url: 'https://tara-test.ria.ee/oidc/jwks',
+  url: AV_VOTME_OTSPUNKT,
   method: 'GET'
 };
 requestModule(
@@ -61,13 +70,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var CLIENT_SECRET = process.env.CLIENT_SECRET;
 console.log('CLIENT_SECRET: ' + CLIENT_SECRET);
 
-const CLIENT_ID = 'ParmaksonResearch';
+// Valmista HTTP Authorization päise väärtus
 const B64_VALUE = new Buffer(CLIENT_ID + ":" + CLIENT_SECRET).toString('base64');
 
 // Päri TARA-teenuse avalik võti
 app.get('/voti', function (req, res) {
   var options = {
-    url: 'https://tara-test.ria.ee/oidc/jwks',
+    url: AV_VOTME_OTSPUNKT,
     method: 'GET'
   };
   requestModule(
@@ -96,14 +105,14 @@ app.get('/', function (req, res) {
 // Autentimispäringu saatmine
 app.get('/auth', (req, res) => {
 
-  // Taasesitusründe vastase kaitsetokeni genereerimine
+  // Taasesitusründe vastase kaitsetokeni (state) genereerimine
   // 16-tärgine sõne(tähed - numbrid)
-  var token = uid(16);
+  var state = uid(16);
 
-  var u = 'https://tara-test.ria.ee/oidc/authorize?' + qs.stringify({
-    redirect_uri: 'https://tarademo.herokuapp.com/Callback',
+  var u = AUTR_OTSPUNKT + qs.stringify({
+    redirect_uri: REDIRECT_URL,
     scope: 'openid',
-    state: token,
+    state: state,
     response_type: 'code',
     client_id: CLIENT_ID
   });
@@ -126,7 +135,7 @@ app.get('/Callback', (req, res) => {
 
   // request mooduli kasutamisega
   var options = {
-    url: 'https://tara-test.ria.ee/oidc/token',
+    url: IDTOENDI_OTSPUNKT,
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + B64_VALUE
@@ -134,7 +143,7 @@ app.get('/Callback', (req, res) => {
     form: {
       'grant_type': 'authorization_code',
       'code': code,
-      'redirect_uri': 'https://tarademo.herokuapp.com/Callback'
+      'redirect_uri': REDIRECT_URL
     }
   };
   requestModule(
