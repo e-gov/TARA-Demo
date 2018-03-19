@@ -7,7 +7,7 @@ const uid = require('rand-token').uid;
 const qs = require('query-string');
 const requestModule = require('request');
 // Päringute silumisvahend
-// require('request-debug')(requestModule);
+require('request-debug')(requestModule);
 const jwkToPem = require('jwk-to-pem');
 var jwt = require('jsonwebtoken');
 
