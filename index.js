@@ -113,6 +113,7 @@ const B64_VALUE = new Buffer(CLIENT_ID + ":" + CLIENT_SECRET).toString('base64')
 
 /* Päri TARA identsustõendi allkirjastamise avalik võti */
 app.get('/voti', function (req, res) {
+  console.log('--- TARA identsustõendi allkirjastamise avaliku võtme pärimine:');
   var options = {
     url: AV_VOTME_OTSPUNKT,
     method: 'GET'
@@ -121,17 +122,21 @@ app.get('/voti', function (req, res) {
     options,
     function (error, response, body) {
       if (error) {
-        console.log('Viga avaliku võtme pärimisel: ', error);
+        console.log(' ebaedukas. Viga: ', error);
         res.send('Viga avaliku võtme pärimisel: ' + JSON.stringify(error));
         return;
       }
       if (response) {
-        console.log('Avaliku võtme pärimine - statusCode: ', response.statusCode);
+        console.log(' statusCode: ', response.statusCode);
       }
       var saadudVotmed = JSON.parse(body);
       var avalikVoti = saadudVotmed.keys[0];
-      console.log('Saadud avalik võti: ', avalikVoti);
-      res.send('Saadud avalik võti: ' + JSON.stringify(avalikVoti));
+      console.log(' saadud avalik võti: ', avalikVoti);
+      res
+        .render('pages/ebaedu', {
+          veateade: 'Saadud avalik võti: ' +
+            JSON.stringify(avalikVoti)
+        });
     });
 });
 
@@ -143,6 +148,7 @@ app.get('/', function (req, res) {
 /* Autentimispäringu saatmine */
 app.get('/auth', (req, res) => {
 
+  console.log('--- Autentimispäringu saatmine:');
   /* Taasesitusründe vastase kaitsetokeni (state) genereerimine.
     Kõigepealt moodusta 16-tärgine juhusõne (tähed-numbrid),
     mis pannakse küpsisesse
@@ -151,10 +157,11 @@ app.get('/auth', (req, res) => {
   /* Arvuta räsi */
   hash.update(rString);
   var state = hash.digest('base64');
-  console.log('state: ' + state);
+  console.log(' state: ' + state);
 
   /* Moodusta autentimispäringu URL, lükkides otspunkti URL-le
     OpenID Connect protokollikohased query-parameetrid */
+  console.log('--- Autentimispäring:');
   var u = AUTR_OTSPUNKT + qs.stringify({
     redirect_uri: REDIRECT_URL,
     scope: 'openid',
@@ -162,11 +169,11 @@ app.get('/auth', (req, res) => {
     response_type: 'code',
     client_id: CLIENT_ID
   });
-  console.log('--- Autentimispäring:');
   console.log(u);
 
-  /* Saada autentimispäring (sirviku ümbersuunamiskorraldusega).
-     Ümbersuunamiskorraldusega salvestatakse sirvikusse küpsis.
+  /*
+   Saada autentimispäring (sirviku ümbersuunamiskorraldusega).
+   Ümbersuunamiskorralduse mõjul salvestatakse sirvikusse küpsis.
   */
   /* Küpsise suvandid */
   var cOptions = {
@@ -181,19 +188,20 @@ app.get('/auth', (req, res) => {
   ja pärib identsustõendi */
 app.get('/Callback', (req, res) => {
 
-  console.log('--- Tagasipöördumispunkt:');
+  console.log('--- Tagasipöördumispäringu töötlemine:');
 
   /* Võta päringu query-osast TARA poolt saadetud volituskood (authorization code) */
   const code = req.query.code;
-  console.log('volituskood: ', code);
+  console.log(' saadud volituskood: ', code);
 
   /* Võta TARA poolt tagastatud kaitsetokeni state väärtus */
   const returnedState = req.query.state;
-  console.log('tagastatud state: ', returnedState);
+  console.log(' saadud state: ', returnedState);
 
   /* Võta päringuga kaasatulnud küpsis */
   if (!req.cookies['TARA-Demo']) {
     // Tagasipöördumispäringuga ei tulnud küpsist
+    console.log(' viga: Tagasipöördumispäringuga ei tulnud küpsist');
     res
       .status(200)
       .render(
@@ -204,16 +212,19 @@ app.get('/Callback', (req, res) => {
     return;
   };
   var c = req.cookies['TARA-Demo'];
-  console.log('Tagasitulnud küpsis: ' + c);
+  console.log(' saadud küpsis: ' + c);
 
-  /* Kaitsetokeni state samasuse kontroll */
+  /*
+   Turvaelemendi state kontroll
+  */
+  console.log('--- Turvaelemendi state kontroll:');
   /* Arvuta räsi */
   hash.update(c);
   var computedState = hash.digest('base64');
-  console('Arvutatud state: ' + computedState);
-
+  console(' arvutatud state: ' + computedState);
   if (computedState != returnedState) {
-    // Saadetud ja tulnud state väärtused ei ühti
+    // Saadetud ja saanud state väärtused ei ühti
+    console.log(' ebaedukas');
     res
       .status(200)
       .render(
@@ -222,13 +233,15 @@ app.get('/Callback', (req, res) => {
           veateade: 'Saadetud ja tulnud state väärtused ei ühti'
         });
     return;
+  } else {
+    console.log(' edukas');
   }
 
-  res
-    .status(200)
-    .render('pages/autenditud', { toend: verifiedJwt });
-
-  /* Identsustõendi pärimine, request mooduli kasutamisega */
+  /*
+   Identsustõendi pärimine, kontroll ka kuvamine,
+   request teegi kasutamisega
+  */
+  console.log('--- Identsustõendi pärimine:');
   var options = {
     url: IDTOENDI_OTSPUNKT,
     method: 'POST',
@@ -241,12 +254,11 @@ app.get('/Callback', (req, res) => {
       'redirect_uri': REDIRECT_URL
     }
   };
-
   requestModule(
     options,
     function (error, response, body) {
       if (error) {
-        console.log('Viga identsustõendi pärimisel: ', error);
+        console.log(' ebaedukas. Viga: ', error);
         res
           .status(200)
           .render('pages/ebaedu',
@@ -254,22 +266,26 @@ app.get('/Callback', (req, res) => {
         return;
       }
       if (response) {
-        console.log('Identsustõendi pärimine - statusCode: ', response.statusCode);
+        console.log(' edukas. statusCode: ', response.statusCode);
       }
       var saadudAndmed = JSON.parse(body);
       var id_token = saadudAndmed.id_token;
-      console.log('Saadud identsustõend: ', id_token);
+      console.log(' saadud identsustõend: ',
+        JSON.stringify(id_token));
 
-      // Identsustõendi kontrollimine
+      /*
+       Identsustõendi kontrollimine
+      */
+      console.log('--- Identsustõendi kontrollimine:');
       jwt.verify(id_token, avalikVotiPEM, function (err, verifiedJwt) {
         if (err) {
-          console.log('Identsustõendi kontrollimine ebaedukas');
+          console.log(' ebaedukas');
           console.log(err);
           res
             .status(200)
-            .render('pages/ebaedu', { veateade: 'Identsustõendi kontrollimisel ilmnes: ' + err });
+            .render('pages/ebaedu', { veateade: 'Identsustõendi kontrollimisel ilmnes viga: ' + err });
         } else {
-          console.log('Identsustõendi kontrollimine edukas');
+          console.log(' edukas');
           res
             .status(200)
             .render('pages/autenditud', { toend: verifiedJwt });
