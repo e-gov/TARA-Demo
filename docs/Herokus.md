@@ -2,13 +2,10 @@
 
 TARA-Demo on üles pandud Heroku pilves. Kui soovite seda korrata, siis leiate abi järgnevast meelespeast.
 
- |
---- | ---
+tegevus | juhis
+--------|-------
 konto avamine | Avage Herokus endale konto.
 uue rakenduse tegemine | Heroku veebi-dashboard-is. Abiteave: [Getting started with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) https://dashboard.heroku.com/apps tehke uus rakendus (siin nimega `tarademo`).
-
- |
---- | ---
 CLI paigaldamine | Paigaldage Heroku CLI lokaalsesse masinasse. Abiteave: 
 [Heroku CLI käsud](https://devcenter.heroku.com/articles/using-the-cli)
 tehte lokaalses masinas git-repo |

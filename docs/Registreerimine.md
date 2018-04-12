@@ -2,7 +2,7 @@
 
 TARA-ga ühendamise eelduseks on klientrakenduse registreerimine. Vt [RIA autentimisteenused](https://www.ria.ee/ee/autentimisteenused.html).
 
-TARA-Demo on registreeritud järgmiste parameetritega:
+TARA-Demo registreerimisel on määratud järgmised parameetrid:
 
 parameeter | väärtus
 -----------|---------
