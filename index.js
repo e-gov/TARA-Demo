@@ -236,7 +236,7 @@ app.get('/Callback', (req, res) => {
   var computedState = crypto.createHash(HASH_ALGO)
     .update(c)
     .digest('base64');
-  console(' arvutatud state: ' + computedState);
+  console.log(' arvutatud state: ' + computedState);
   if (computedState != returnedState) {
     // Saadetud ja saanud state väärtused ei ühti
     console.log(' ebaedukas');
