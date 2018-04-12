@@ -2,11 +2,11 @@
 
 TARA-Demo on tööle pandud Heroku pilves. Kui soovite ülespanekut ise läbi teha, siis leiate abi järgnevast meelespeast.
  
-&nbsp; | Avage konto. Avage Herokus endale tasuta konto.
+&nbsp; | Kloonige TARA-Demo git repo lokaalsesse masinasse.
 --|--
+&nbsp; | Avage Herokus endale tasuta konto.
  https://dashboard.heroku.com/apps | Heroku veebi-dashboard-is  tehke uus rakendus (siin nimega `tarademo`). abi: [Getting started with Node.js] (https://devcenter.heroku.com/articles/getting-started-with-nodejs) 
 &nbsp; | Paigaldage Heroku CLI lokaalsesse masinasse. abi: [Heroku CLI käsud](https://devcenter.heroku.com/articles/using-the-cli)
-&nbsp; | Kloonige TARA-Demo git repo lokaalsesse masinasse.
 `heroku login` | Logige sisse. Liikuge CLI-s (või IDE integreeritud terminalis) git repo kausta. Sisestage `heroku login` (seejärel kasutajanimi + parool)
 `git remote -v` | Vaadake, millega repo on seotud: 
 `git remote`v| Siduge git repo Heroku repoga. abi: [Git raamat](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)
