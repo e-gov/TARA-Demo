@@ -45,10 +45,10 @@ const REDIRECT_URL = 'https://tarademo.herokuapp.com/Callback';
 /* Klientrakenduse identifikaator */
 const CLIENT_ID = 'ParmaksonResearch';
 
-// TARA-teenuse avalik võti PEM-vormingus
+/ TARA identsustõendi allkirjastamise avalik võti PEM-vormingus */
 var avalikVotiPEM;
-// Päri TARA-teenuse avalik võti. Eeldame, et päring
-// jõutakse teha enne, kui kasutaja nupule vajutab
+/* Päri TARA identsustõendi allkirjastamise avalik võti. Eeldame, et päring võtme publitseerimise otspunkti 
+ jõutakse teha enne, kui kasutaja nupule vajutab. Jah, race condition. See on demos puuduseks. */
 var options = {
   url: AV_VOTME_OTSPUNKT,
   method: 'GET'
@@ -70,25 +70,30 @@ requestModule(
     avalikVotiPEM = jwkToPem(avalikVoti);
   });
 
-// Veebiserveri ettevalmistamine
+/* Veebiserveri ettevalmistamine */
 const app = express();
 app.use(cookieParser());
+/* Kui Heroku keskkonnamuutujas ei ole määratud teisiti,
+ siis kasutatakse porti 5000. */
 app.set('port', (process.env.PORT || 5000));
 
-// Sea juurkaust, millest serveeritakse sirvikusse ressursse
-// http://expressjs.com/en/starter/static-files.html 
-// https://expressjs.com/en/4x/api.html#express.static
+/* Sea juurkaust, millest serveeritakse sirvikusse ressursse
+ vt http://expressjs.com/en/starter/static-files.html 
+ ja https://expressjs.com/en/4x/api.html#express.static */
 app.use(express.static(__dirname + '/public'));
 
-// Sea rakenduse vaadete kaust
+/* Sea rakenduse vaadete (kasutajale esitatavate HTML-mallide) kaust */
 app.set('views', __dirname + '/views');
 
+/* Määra kasutatav mallimootor */
 app.set('view engine', 'ejs');
 
-// application/json parsimiseks
+/* Vajalik seadistus MIME-tüübi application/json 
+parsimiseks */
 app.use(bodyParser.json());
 
-// application/x-www-form-urlencoded parsimiseks
+/* Vajalik seadistus MIME-tüübi
+ application/x-www-form-urlencoded parsimiseks */
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Võta keskkonnamuutujasse salvestatud salasõna
