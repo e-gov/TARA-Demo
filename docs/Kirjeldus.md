@@ -2,4 +2,5 @@
 
 TARA-Demo on kirjutatud Node.js-s.
 
-Rakenduse kood on peamiselt failis `index.js`.
+Rakenduse kood on peamiselt failis `index.js`. Tutvuge sealsete kommentaaridega.
+

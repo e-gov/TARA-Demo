@@ -1,23 +1,48 @@
+/*
+  TARA-Demo - autentimisteenuse TARA kasutamist demonstreeriv Node.js rakendus
+
+  Priit Parmakson, 2017-2018
+*/
+
 'use strict';
 
+/* Vajalike teekide laadimine */
+
+/* Veebiraamistik Express */
 const express = require('express');
+
+/* HTTP päringu parsimisvahendid */
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const uid = require('rand-token').uid;
 const qs = require('query-string');
+
+/* Juhusõne genereerimise vahend*/
+const uid = require('rand-token').uid;
+
+/* HTTP päringute töötluse teek */
 const requestModule = require('request');
-// Päringute silumisvahend
+
+/* HTTP päringute silumisvahend */
 require('request-debug')(requestModule);
+
+/* JWK PEM vormingusse teisendamise vahend */
 const jwkToPem = require('jwk-to-pem');
+
+/* Veebitõendi (JWT) töötlusvahend */
 var jwt = require('jsonwebtoken');
 
-// TARA testteenuse URL-id
+/* TARA testteenuse otspunktide URL-id */
+/* Identsustõendi allkirjastamise avaliku võtme publitseerimispunkt */
 const AV_VOTME_OTSPUNKT = 'https://tara-test.ria.ee/oidc/jwks';
+/* Autoriseerimis- e autentimispäringu vastuvõtu otspunkt*/
 const AUTR_OTSPUNKT = 'https://tara-test.ria.ee/oidc/authorize?';
+/* Identsustõendi väljastamise otspunkt */
 const IDTOENDI_OTSPUNKT = 'https://tara-test.ria.ee/oidc/token';
 
-// Klientrakenduse TARA-Demo parameetrid
+/* Klientrakenduse TARA-Demo parameetrid */
+/* Tagasisuunamis-URL */
 const REDIRECT_URL = 'https://tarademo.herokuapp.com/Callback';
+/* Klientrakenduse identifikaator */
 const CLIENT_ID = 'ParmaksonResearch';
 
 // TARA-teenuse avalik võti PEM-vormingus
