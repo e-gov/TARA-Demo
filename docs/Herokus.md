@@ -2,33 +2,29 @@
 
 TARA-Demo on tööle pandud Heroku pilves. Kui soovite ülespanekut ise läbi teha, siis leiate abi järgnevast meelespeast.
  
-__avage konto__. Avage Herokus endale tasuta konto.
+Avage konto. Avage Herokus endale tasuta konto.
 
-__tehke uus rakendus__. Heroku veebi-dashboard-is https://dashboard.heroku.com/apps tehke uus rakendus (siin nimega `tarademo`).
+Tehke uus rakendus. Heroku veebi-dashboard-is https://dashboard.heroku.com/apps tehke uus rakendus (siin nimega `tarademo`). abi: [Getting started with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) 
 
-abi: [Getting started with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) 
+Paigaldage CLI. Paigaldage Heroku CLI lokaalsesse masinasse. abi: [Heroku CLI käsud](https://devcenter.heroku.com/articles/using-the-cli)
 
-__paigaldage CLI__. Paigaldage Heroku CLI lokaalsesse masinasse.
+Kloonige TARA-Demo git repo lokaalsesse masinasse.
 
-abi: [Heroku CLI käsud](https://devcenter.heroku.com/articles/using-the-cli)
+Logige sisse. Liikuge CLI-s (või IDE integreeritud terminalis) git repo kausta. Sisestage `heroku login` (seejärel kasutajanimi + parool)
 
-__kloonige TARA-Demo git repo lokaalsesse masinasse__.
+Siduge git repo Heroku repoga. Vaadake, millega repo on seotud: `git remote -v`. Sidumine: `git remote`. abi: [Git raamat](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)
 
-__logige sisse__. Liikuge CLI-s (või IDE integreeritud terminalis) git repo kausta. Sisestage `heroku login` (seejärel kasutajanimi + parool)
+Laadige rakendus pilve. `git push heroku master`
 
-__siduge git repo Heroku repoga__. Vaadake, millega repo on seotud: `git remote -v`.<br> Sidumine: `git remote`.<br><br> abi: [Git raamat](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)
+Võite vaadata, mitu masinat pilves töötab. `heroku ps`
 
-__laadige rakendus pilve__. `git push heroku master`
+Avage rakenduse veebileht. `heroku open`
 
-__võite vaadata, mitu masinat pilves töötab__. `heroku ps`
+Võite käivitada rakenduse lokaalselt. `heroku local web`. abi: [Heroku local](https://devcenter.heroku.com/articles/heroku-local)
 
-__avage rakenduse veebileht__. `heroku open`
+Lokaalse kasutajaliidese avamine sirvikus. `http://localhost:5000`
 
-__võite käivitada rakenduse lokaalselt__. `heroku local web`.<br><br> abi: [Heroku local](https://devcenter.heroku.com/articles/heroku-local)
+Logide vaatamine. `heroku logs`.<br><br> Filtriga: `heroku logs --source app -n 10`. abi: [Logimisest](https://devcenter.heroku.com/articles/logging) 
 
-__lokaalse kasutajaliidese avamine sirvikus__. `http://localhost:5000`
-
-__logide vaatamine__. `heroku logs`.<br><br> Filtriga: `heroku logs --source app -n 10`.<br><br> abi: [Logimisest](https://devcenter.heroku.com/articles/logging) 
-
-__seadke keskkonnamuutujad__ (vajate klientrakenduse salasõna CLIENT_SECRET seadmist).  `heroku config`<br> `heroku config:set VAR=väärtus`<br> `heroku config:get VAR`<br> `heroku config:unset VAR`.<br><br> abi: [Configuration variables](https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-config-vars) 
+Seadke keskkonnamuutujad (vajate klientrakenduse salasõna CLIENT_SECRET seadmist). `heroku config` `heroku config:set VAR=väärtus` `heroku config:get VAR` `heroku config:unset VAR`. abi: [Configuration variables](https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-config-vars) 
 

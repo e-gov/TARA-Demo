@@ -21,8 +21,8 @@ const uid = require('rand-token').uid;
 
 /* Node.js krüptoteek */
 const crypto = require('crypto');
-/* Vali räsialgoritm - SHA256 */
-const hash = crypto.createHash('sha256');
+/* Määra räsialgoritm - SHA256 */
+const HASH_ALGO = 'sha256';
 
 /* HTTP päringute töötluse teek */
 const requestModule = require('request');
@@ -52,8 +52,12 @@ const CLIENT_ID = 'ParmaksonResearch';
 
 / TARA identsustõendi allkirjastamise avalik võti PEM-vormingus */
 var avalikVotiPEM;
-/* Päri TARA identsustõendi allkirjastamise avalik võti. Eeldame, et päring võtme publitseerimise otspunkti 
- jõutakse teha enne, kui kasutaja nupule vajutab. Jah, race condition. See on demos puuduseks. */
+/*
+  Päri TARA identsustõendi allkirjastamise avalik võti.
+  Eeldame, et päring võtme publitseerimise otspunkti 
+  jõutakse teha enne, kui kasutaja nupule vajutab. Jah,
+  race condition. See on demos puuduseks.
+ */
 var options = {
   url: AV_VOTME_OTSPUNKT,
   method: 'GET'
@@ -103,15 +107,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 /* Võta keskkonnamuutujasse salvestatud salasõna */
 var CLIENT_SECRET = process.env.CLIENT_SECRET;
-console.log('CLIENT_SECRET: ' + CLIENT_SECRET);
+/* NB! Vältida salasõna avalikukstulekut logi kaudu */
+// console.log('CLIENT_SECRET: ' + CLIENT_SECRET);
 
 /* Valmista HTTP Authorization päise väärtus */
 const B64_VALUE = new Buffer(CLIENT_ID + ":" + CLIENT_SECRET).toString('base64');
 
-/* Järgnevad marsruuteri töötlusreeglid
+/*
+  Järgnevad marsruuteri töötlusreeglid
 */
 
-/* Päri TARA identsustõendi allkirjastamise avalik võti */
+/*
+  Päri TARA identsustõendi allkirjastamise avalik võti
+*/
 app.get('/voti', function (req, res) {
   console.log('--- TARA identsustõendi allkirjastamise avaliku võtme pärimine:');
   var options = {
@@ -145,7 +153,9 @@ app.get('/', function (req, res) {
   res.render('pages/index');
 });
 
-/* Autentimispäringu saatmine */
+/*
+ Autentimispäringu saatmine
+*/
 app.get('/auth', (req, res) => {
 
   console.log('--- Autentimispäringu saatmine:');
@@ -154,14 +164,16 @@ app.get('/auth', (req, res) => {
     mis pannakse küpsisesse
   */
   var rString = uid(16);
+  console.log(' küpsisesse pandav juhusõne: ' + rString);
   /* Arvuta räsi */
-  hash.update(rString);
-  var state = hash.digest('base64');
+  var state = crypto.createHash(HASH_ALGO)
+    .update(rString)
+    .digest('base64');
   console.log(' state: ' + state);
 
   /* Moodusta autentimispäringu URL, lükkides otspunkti URL-le
     OpenID Connect protokollikohased query-parameetrid */
-  console.log('--- Autentimispäring:');
+  console.log(' autentimispäring:');
   var u = AUTR_OTSPUNKT + qs.stringify({
     redirect_uri: REDIRECT_URL,
     scope: 'openid',
@@ -184,8 +196,10 @@ app.get('/auth', (req, res) => {
     .redirect(u);
 });
 
-/* Tagasipöördumispunkt, parsib autoriseerimiskoodi
-  ja pärib identsustõendi */
+/*
+  Tagasipöördumispunkt, parsib autoriseerimiskoodi
+  ja pärib identsustõendi
+*/
 app.get('/Callback', (req, res) => {
 
   console.log('--- Tagasipöördumispäringu töötlemine:');
@@ -219,8 +233,9 @@ app.get('/Callback', (req, res) => {
   */
   console.log('--- Turvaelemendi state kontroll:');
   /* Arvuta räsi */
-  hash.update(c);
-  var computedState = hash.digest('base64');
+  var computedState = crypto.createHash(HASH_ALGO)
+    .update(c)
+    .digest('base64');
   console(' arvutatud state: ' + computedState);
   if (computedState != returnedState) {
     // Saadetud ja saanud state väärtused ei ühti
