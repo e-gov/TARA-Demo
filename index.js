@@ -27,8 +27,8 @@ const HASH_ALGO = 'sha256';
 /* HTTP päringute töötluse teek */
 const requestModule = require('request');
 
-/* HTTP päringute silumisvahend */
-require('request-debug')(requestModule);
+/* HTTP päringute silumisvahend. Praegu välja lülitatud */
+// require('request-debug')(requestModule);
 
 /* JWK PEM vormingusse teisendamise vahend */
 const jwkToPem = require('jwk-to-pem');
@@ -44,11 +44,17 @@ const AUTR_OTSPUNKT = 'https://tara-test.ria.ee/oidc/authorize?';
 /* Identsustõendi väljastamise otspunkt */
 const IDTOENDI_OTSPUNKT = 'https://tara-test.ria.ee/oidc/token';
 
+/* Autentimisteenuse TARA olulised parameetrid */
+const ISSUER = 'https://tara-test.ria.ee';
+
 /* Klientrakenduse TARA-Demo parameetrid */
 /* Tagasisuunamis-URL */
 const REDIRECT_URL = 'https://tarademo.herokuapp.com/Callback';
 /* Klientrakenduse identifikaator */
 const CLIENT_ID = 'ParmaksonResearch';
+
+/* Kellade maks lubatud erinevus identsustõendi kontrollimisel */
+const CLOCK_TOLERANCE = 10; 
 
 / TARA identsustõendi allkirjastamise avalik võti PEM-vormingus */
 var avalikVotiPEM;
@@ -253,7 +259,7 @@ app.get('/Callback', (req, res) => {
   }
 
   /*
-   Identsustõendi pärimine, kontroll ka kuvamine,
+   Identsustõendi pärimine, kontroll ja kuvamine,
    request teegi kasutamisega
   */
   console.log('--- Identsustõendi pärimine:');
@@ -289,23 +295,35 @@ app.get('/Callback', (req, res) => {
         JSON.stringify(id_token));
 
       /*
-       Identsustõendi kontrollimine
+       Identsustõendi kontrollimine. Teegi jsonwebtoken
+       abil kontrollitakse allkirja, tõendi saajat (aud), tõendi
+       väljaandjat (iss) ja tõendi kehtivust (nbf ja exp).
+       Vt https://www.npmjs.com/package/jsonwebtoken
       */
       console.log('--- Identsustõendi kontrollimine:');
-      jwt.verify(id_token, avalikVotiPEM, function (err, verifiedJwt) {
-        if (err) {
-          console.log(' ebaedukas');
-          console.log(err);
-          res
-            .status(200)
-            .render('pages/ebaedu', { veateade: 'Identsustõendi kontrollimisel ilmnes viga: ' + err });
-        } else {
-          console.log(' edukas');
-          res
-            .status(200)
-            .render('pages/autenditud', { toend: verifiedJwt });
-        }
-      });
+      jwt.verify(
+        id_token, // Kontrollitav tõend
+        avalikVotiPEM, // Allkirja avalik võti
+        {
+          audience: CLIENT_ID, // Tõendi saaja
+          issuer: ISSUER, // Tõendi väljaandja
+          clockTolerance: CLOCK_TOLERANCE // Kellade max lubatud erinevus
+        },
+        function (err, verifiedJwt) {
+          if (err) {
+            console.log(' ebaedukas');
+            console.log(err);
+            res
+              .status(200)
+              .render('pages/ebaedu', { veateade: 'Identsustõendi kontrollimisel ilmnes viga: ' + err });
+          } else {
+            console.log(' edukas');
+
+            res
+              .status(200)
+              .render('pages/autenditud', { toend: verifiedJwt });
+          }
+        });
 
     });
 
