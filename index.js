@@ -19,6 +19,11 @@ const qs = require('query-string');
 /* Juhusõne genereerimise vahend*/
 const uid = require('rand-token').uid;
 
+/* Node.js krüptoteek */
+const crypto = require('crypto');
+/* Vali räsialgoritm - SHA256 */
+const hash = crypto.createHash('sha256');
+
 /* HTTP päringute töötluse teek */
 const requestModule = require('request');
 
@@ -28,7 +33,7 @@ require('request-debug')(requestModule);
 /* JWK PEM vormingusse teisendamise vahend */
 const jwkToPem = require('jwk-to-pem');
 
-/* Veebitõendi (JWT) töötlusvahend */
+/* Veebitõendi (JWT) töötlusvahend. Kasutame identsustõendi kontrollimisel */
 var jwt = require('jsonwebtoken');
 
 /* TARA testteenuse otspunktide URL-id */
@@ -96,14 +101,17 @@ app.use(bodyParser.json());
  application/x-www-form-urlencoded parsimiseks */
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Võta keskkonnamuutujasse salvestatud salasõna
+/* Võta keskkonnamuutujasse salvestatud salasõna */
 var CLIENT_SECRET = process.env.CLIENT_SECRET;
 console.log('CLIENT_SECRET: ' + CLIENT_SECRET);
 
-// Valmista HTTP Authorization päise väärtus
+/* Valmista HTTP Authorization päise väärtus */
 const B64_VALUE = new Buffer(CLIENT_ID + ":" + CLIENT_SECRET).toString('base64');
 
-// Päri TARA-teenuse avalik võti
+/* Järgnevad marsruuteri töötlusreeglid
+*/
+
+/* Päri TARA identsustõendi allkirjastamise avalik võti */
 app.get('/voti', function (req, res) {
   var options = {
     url: AV_VOTME_OTSPUNKT,
@@ -127,18 +135,26 @@ app.get('/voti', function (req, res) {
     });
 });
 
-// Esilehe kuvamine
+/* Esilehe kuvamine */
 app.get('/', function (req, res) {
   res.render('pages/index');
 });
 
-// Autentimispäringu saatmine
+/* Autentimispäringu saatmine */
 app.get('/auth', (req, res) => {
 
-  // Taasesitusründe vastase kaitsetokeni (state) genereerimine
-  // 16-tärgine sõne(tähed - numbrid)
-  var state = uid(16);
+  /* Taasesitusründe vastase kaitsetokeni (state) genereerimine.
+    Kõigepealt moodusta 16-tärgine juhusõne (tähed-numbrid),
+    mis pannakse küpsisesse
+  */
+  var rString = uid(16);
+  /* Arvuta räsi */
+  hash.update(rString);
+  var state = hash.digest('base64');
+  console.log('state: ' + state);
 
+  /* Moodusta autentimispäringu URL, lükkides otspunkti URL-le
+    OpenID Connect protokollikohased query-parameetrid */
   var u = AUTR_OTSPUNKT + qs.stringify({
     redirect_uri: REDIRECT_URL,
     scope: 'openid',
@@ -148,22 +164,71 @@ app.get('/auth', (req, res) => {
   });
   console.log('--- Autentimispäring:');
   console.log(u);
-  res.redirect(u);
+
+  /* Saada autentimispäring (sirviku ümbersuunamiskorraldusega).
+     Ümbersuunamiskorraldusega salvestatakse sirvikusse küpsis.
+  */
+  /* Küpsise suvandid */
+  var cOptions = {
+    httpOnly: true // Küpsis loetav ainult veebiserverile
+  }
+  res
+    .cookie('TARA-Demo', rString, cOptions)
+    .redirect(u);
 });
 
-// Tagasipöördumispunkt, parsib autoriseerimiskoodi
-// ja pärib identsustõendi
+/* Tagasipöördumispunkt, parsib autoriseerimiskoodi
+  ja pärib identsustõendi */
 app.get('/Callback', (req, res) => {
 
   console.log('--- Tagasipöördumispunkt:');
 
+  /* Võta päringu query-osast TARA poolt saadetud volituskood (authorization code) */
   const code = req.query.code;
   console.log('volituskood: ', code);
 
+  /* Võta TARA poolt tagastatud kaitsetokeni state väärtus */
   const returnedState = req.query.state;
   console.log('tagastatud state: ', returnedState);
 
-  // request mooduli kasutamisega
+  /* Võta päringuga kaasatulnud küpsis */
+  if (!req.cookies['TARA-Demo']) {
+    // Tagasipöördumispäringuga ei tulnud küpsist
+    res
+      .status(200)
+      .render(
+        'pages/ebaedu',
+        {
+          veateade: 'Tagasipöördumispäringuga ei tulnud küpsist'
+        });
+    return;
+  };
+  var c = req.cookies['TARA-Demo'];
+  console.log('Tagasitulnud küpsis: ' + c);
+
+  /* Kaitsetokeni state samasuse kontroll */
+  /* Arvuta räsi */
+  hash.update(c);
+  var computedState = hash.digest('base64');
+  console('Arvutatud state: ' + computedState);
+
+  if (computedState != returnedState) {
+    // Saadetud ja tulnud state väärtused ei ühti
+    res
+      .status(200)
+      .render(
+        'pages/ebaedu',
+        {
+          veateade: 'Saadetud ja tulnud state väärtused ei ühti'
+        });
+    return;
+  }
+
+  res
+    .status(200)
+    .render('pages/autenditud', { toend: verifiedJwt });
+
+  /* Identsustõendi pärimine, request mooduli kasutamisega */
   var options = {
     url: IDTOENDI_OTSPUNKT,
     method: 'POST',
@@ -176,12 +241,16 @@ app.get('/Callback', (req, res) => {
       'redirect_uri': REDIRECT_URL
     }
   };
+
   requestModule(
     options,
     function (error, response, body) {
       if (error) {
         console.log('Viga identsustõendi pärimisel: ', error);
-        res.send(JSON.stringify(error));
+        res
+          .status(200)
+          .render('pages/ebaedu',
+            { veateade: 'Viga identsustõendi pärimisel: ' + JSON.stringify(error) });
         return;
       }
       if (response) {
@@ -191,25 +260,27 @@ app.get('/Callback', (req, res) => {
       var id_token = saadudAndmed.id_token;
       console.log('Saadud identsustõend: ', id_token);
 
-      // Identsustõendi valideerimine
+      // Identsustõendi kontrollimine
       jwt.verify(id_token, avalikVotiPEM, function (err, verifiedJwt) {
         if (err) {
+          console.log('Identsustõendi kontrollimine ebaedukas');
           console.log(err);
+          res
+            .status(200)
+            .render('pages/ebaedu', { veateade: 'Identsustõendi kontrollimisel ilmnes: ' + err });
         } else {
-          console.log('Valideerimine edukas');
-          console.log(verifiedJwt); // Will contain the header and body
-          res.status(200)
+          console.log('Identsustõendi kontrollimine edukas');
+          res
+            .status(200)
             .render('pages/autenditud', { toend: verifiedJwt });
-
         }
       });
 
-      // res.send(saadudAndmed.id_token);
     });
 
 });
 
-// Veebiserveri käivitamine
+/* Veebiserveri käivitamine */
 app.listen(app.get('port'), function () {
   console.log('---- Node rakendus käivitatud ----');
 });

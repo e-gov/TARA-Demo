@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <% include ../partials/header.ejs %>
   </head>
 
   <body>
 
-      <p>Tere,
-        <span class='kood'>
-          <%= toend.profile_attributes.given_name %>
-            <%= toend.profile_attributes.family_name %>
-        </span>!</p>
+    <p>Tere,
+      <span class='kood'>
+        <%= toend.profile_attributes.given_name %>
+          <%= toend.profile_attributes.family_name %>
+      </span>!</p>
 
-      <p>Autentimistõend:</p>
-      <pre class='kood'>
+    <p>Autentimistõend:</p>
+    <pre class='kood'>
           { aud: '<%= toend.aud %>',
             iss: '<%= toend.iss %>',
             jti: '<%= toend.jti %>',
@@ -32,7 +33,7 @@
           }
         </pre>
 
-        </div>
+    </div>
 
   </body>
 
