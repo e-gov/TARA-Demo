@@ -2,7 +2,7 @@
 
 TARA-Demo on tööle pandud Heroku pilves. Kui soovite ülespanekut ise läbi teha, siis leiate abi järgnevast meelespeast.
  
- käsk | selgitud 
+ &nbsp; | &nbsp; 
 --|--
 &nbsp; | Avage konto. Avage Herokus endale tasuta konto.
  https://dashboard.heroku.com/apps | Heroku veebi-dashboard-is  tehke uus rakendus (siin nimega `tarademo`). abi: [Getting started with Node.js] (https://devcenter.heroku.com/articles/getting-started-with-nodejs) 
