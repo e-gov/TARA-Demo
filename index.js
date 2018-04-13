@@ -43,7 +43,6 @@ const logija = require('./lib/logija.js');
 /* Logi hoidva Google Apps rakenduse URL */
 var LOGI_URL = 'https://script.google.com/macros/s/AKfycbyk1NNbHdgtRZCiNQLAedPOW8THdbLNQRPqZkkSw5VwrWu01Iw/exec';
 
-
 /* TARA testteenuse otspunktide URL-id */
 /* Identsustõendi allkirjastamise avaliku võtme publitseerimispunkt */
 const AV_VOTME_OTSPUNKT = 'https://tara-test.ria.ee/oidc/jwks';
