@@ -40,6 +40,9 @@ var jwt = require('jsonwebtoken');
 
 /* Logija */
 const logija = require('./lib/logija.js');
+/* Logi hoidva Google Apps rakenduse URL */
+var LOGI_URL = 'https://script.google.com/macros/s/AKfycbyk1NNbHdgtRZCiNQLAedPOW8THdbLNQRPqZkkSw5VwrWu01Iw/exec';
+
 
 /* TARA testteenuse otspunktide URL-id */
 /* Identsustõendi allkirjastamise avaliku võtme publitseerimispunkt */
@@ -346,7 +349,27 @@ app.get('/Callback', (req, res) => {
   Kasutusstatistika kuvamine
 */
 app.get('/stat', (req, res) => {
-  logija.loeLogi();
+  console.log('--- Logi lugemine:');
+  var options = {
+    url: LOGI_URL,
+    method: 'GET',
+  };
+  requestModule(
+    options,
+    function (error, response, body) {
+      if (error) {
+        console.log(' ebaedukas. Viga: ', error);
+        res
+          .render('pages/ebaedu', { veateade: 'Viga logi lugemisel: ' + JSON.stringify(error) });
+        return;
+      }
+      if (response) {
+        console.log(' Logi loetud. statusCode: ', response.statusCode);
+        res
+          .send(body);
+      }
+    });
+
 });
 
 /* Veebiserveri käivitamine */
