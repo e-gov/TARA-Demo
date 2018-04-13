@@ -346,7 +346,7 @@ app.get('/Callback', (req, res) => {
   Kasutusstatistika kuvamine
 */
 app.get('/stat', (req, res) => {
-  
+  logija.loeLogi();
 });
 
 /* Veebiserveri käivitamine */
