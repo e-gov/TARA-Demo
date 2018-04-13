@@ -342,6 +342,13 @@ app.get('/Callback', (req, res) => {
 
 });
 
+/*
+  Kasutusstatistika kuvamine
+*/
+app.get('/stat', (req, res) => {
+  
+});
+
 /* Veebiserveri käivitamine */
 app.listen(app.get('port'), function () {
   console.log('---- Node rakendus käivitatud ----');
