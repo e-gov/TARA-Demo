@@ -38,6 +38,9 @@ const jwkToPem = require('jwk-to-pem');
 /* Veebitõendi (JWT) töötlusvahend. Kasutame identsustõendi kontrollimisel */
 var jwt = require('jsonwebtoken');
 
+/* Logija */
+const logija = require('./lib/logija.js');
+
 /* TARA testteenuse otspunktide URL-id */
 /* Identsustõendi allkirjastamise avaliku võtme publitseerimispunkt */
 const AV_VOTME_OTSPUNKT = 'https://tara-test.ria.ee/oidc/jwks';
@@ -325,6 +328,9 @@ app.get('/Callback', (req, res) => {
               .render('pages/ebaedu', { veateade: 'Identsustõendi kontrollimisel ilmnes viga: ' + err });
           } else {
             console.log(' edukas');
+
+            /* Logimine */
+            logija.lisaKirje('OK', verifiedJwt.sub);
 
             res
               .status(200)
