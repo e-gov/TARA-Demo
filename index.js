@@ -24,7 +24,9 @@ const crypto = require('crypto');
 /* Määra räsialgoritm - SHA256 */
 const HASH_ALGO = 'sha256';
 
-/* HTTP päringute töötluse teek */
+/* HTTP kliendi teek
+  Vt https://www.npmjs.com/package/request 
+*/
 const requestModule = require('request');
 
 /* HTTP päringute silumisvahend. Praegu välja lülitatud */
@@ -60,9 +62,13 @@ const CLOCK_TOLERANCE = 10;
 var avalikVotiPEM;
 /*
   Päri TARA identsustõendi allkirjastamise avalik võti.
+  Pärime rakenduse käivitamisel üks kord, puhverdame ja 
+  kasutame hiljem kõigis autentimistes. NB! Puhvrit ei
+  värskendata. Tootmiskõlbulikus rakenduses tuleks
+  teostada puhvri värskendamine.
   Eeldame, et päring võtme publitseerimise otspunkti 
   jõutakse teha enne, kui kasutaja nupule vajutab. Jah,
-  race condition. See on demos puuduseks.
+  see on race condition. See on demos puuduseks.
  */
 var options = {
   url: AV_VOTME_OTSPUNKT,
@@ -125,6 +131,7 @@ const B64_VALUE = new Buffer(CLIENT_ID + ":" + CLIENT_SECRET).toString('base64')
 
 /*
   Päri TARA identsustõendi allkirjastamise avalik võti
+  ja kuva kasutajale
 */
 app.get('/voti', function (req, res) {
   console.log('--- TARA identsustõendi allkirjastamise avaliku võtme pärimine:');
@@ -137,7 +144,8 @@ app.get('/voti', function (req, res) {
     function (error, response, body) {
       if (error) {
         console.log(' ebaedukas. Viga: ', error);
-        res.send('Viga avaliku võtme pärimisel: ' + JSON.stringify(error));
+        res
+          .render('pages/ebaedu', { veateade: 'Viga avaliku võtme pärimisel: ' + JSON.stringify(error) } );
         return;
       }
       if (response) {
@@ -147,10 +155,8 @@ app.get('/voti', function (req, res) {
       var avalikVoti = saadudVotmed.keys[0];
       console.log(' saadud avalik võti: ', avalikVoti);
       res
-        .render('pages/ebaedu', {
-          veateade: 'Saadud avalik võti: ' +
-            JSON.stringify(avalikVoti)
-        });
+        .send('Saadud avalik võti: ' +
+            JSON.stringify(avalikVoti));
     });
 });
 
@@ -203,8 +209,9 @@ app.get('/auth', (req, res) => {
 });
 
 /*
-  Tagasipöördumispunkt, parsib autoriseerimiskoodi
-  ja pärib identsustõendi
+  Tagasipöördumispäringu (callback) vastuvõtmine,
+  identsustõendi pärimine ja kontrollimine ning
+  kasutajale esitamine 
 */
 app.get('/Callback', (req, res) => {
 
