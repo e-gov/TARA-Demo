@@ -1,9 +1,10 @@
 ### Ülespanek ja käitamine Heroku pilves
 
-TARA-Demo on tööle pandud Heroku pilves. Kui soovite ülespanekut ise läbi teha, siis leiate abi järgnevast meelespeast.
+TARA-Demo on tööle pandud Heroku pilves. Kui soovite ülespanekut ise läbi teha, siis leiate abi järgnevast meelespeast. 
  
-&nbsp; | Kloonige TARA-Demo git repo lokaalsesse masinasse.
+`git clone https://github.com/e-gov/TARA-Demo` | Kloonige TARA-Demo git repo lokaalsesse masinasse.
 --|--
+&nbsp; | [registreerige oma klientrakendus](docs/Registreerimine.md)
 &nbsp; | Avage Herokus endale tasuta konto.
  https://dashboard.heroku.com/apps | Heroku veebi-dashboard-is  tehke uus rakendus (siin nimega `tarademo`). abi: [Getting started with Node.js] (https://devcenter.heroku.com/articles/getting-started-with-nodejs) 
 &nbsp; | Paigaldage Heroku CLI lokaalsesse masinasse. abi: [Heroku CLI käsud](https://devcenter.heroku.com/articles/using-the-cli)
