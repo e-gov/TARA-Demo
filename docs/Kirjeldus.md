@@ -12,3 +12,4 @@ GET /voti | Päri TARA identsustõendi allkirjastamise avalik võti
 GET /     | Esilehe kuvamine
 GET /auth | Autentimispäringu saatmine
 GET /callback | Tagasipöördumispunkt, parsib autoriseerimiskoodi ja pärib identsustõendi
+GET /stat | Logi kuvamine (edaspidi lisandub kasutusstatistika)
