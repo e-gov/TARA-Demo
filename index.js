@@ -61,7 +61,7 @@ const REDIRECT_URL = 'https://tarademo.herokuapp.com/Callback';
 const CLIENT_ID = 'ParmaksonResearch';
 
 /* Kellade maks lubatud erinevus identsustõendi kontrollimisel */
-const CLOCK_TOLERANCE = 10; 
+const CLOCK_TOLERANCE = 10;
 
 / TARA identsustõendi allkirjastamise avalik võti PEM-vormingus */
 var avalikVotiPEM;
@@ -130,14 +130,14 @@ var CLIENT_SECRET = process.env.CLIENT_SECRET;
 /* Valmista HTTP Authorization päise väärtus */
 const B64_VALUE = new Buffer(CLIENT_ID + ":" + CLIENT_SECRET).toString('base64');
 
-/*
-  Järgnevad marsruuteri töötlusreeglid
-*/
+/**
+ *  Järgnevad marsruuteri töötlusreeglid
+ */
 
-/*
-  Päri TARA identsustõendi allkirjastamise avalik võti
-  ja kuva kasutajale
-*/
+/**
+ * Päri TARA identsustõendi allkirjastamise avalik võti
+ * ja kuva kasutajale
+ */
 app.get('/voti', function (req, res) {
   console.log('--- TARA identsustõendi allkirjastamise avaliku võtme pärimine:');
   var options = {
@@ -146,11 +146,11 @@ app.get('/voti', function (req, res) {
   };
   requestModule(
     options,
-    function (error, response, body) {
+    (error, response, body) => {
       if (error) {
         console.log(' ebaedukas. Viga: ', error);
         res
-          .render('pages/ebaedu', { veateade: 'Viga avaliku võtme pärimisel: ' + JSON.stringify(error) } );
+          .render('pages/ebaedu', { veateade: 'Viga avaliku võtme pärimisel: ' + JSON.stringify(error) });
         return;
       }
       if (response) {
@@ -161,25 +161,32 @@ app.get('/voti', function (req, res) {
       console.log(' saadud avalik võti: ', avalikVoti);
       res
         .send('Saadud avalik võti: ' +
-            JSON.stringify(avalikVoti));
+          JSON.stringify(avalikVoti));
     });
 });
 
-/* Esilehe kuvamine */
+/**
+ * Esilehe kuvamine
+ */
 app.get('/', function (req, res) {
   res.render('pages/index');
 });
 
-/*
- Autentimispäringu saatmine
-*/
+/**
+ * Autentimispäringu saatmine
+ */
 app.get('/auth', (req, res) => {
 
   console.log('--- Autentimispäringu saatmine:');
-  /* Taasesitusründe vastase kaitsetokeni (state) genereerimine.
-    Kõigepealt moodusta 16-tärgine juhusõne (tähed-numbrid),
-    mis pannakse küpsisesse
-  */
+
+  /* Logi autentimise alustamine */
+  logija.lisaKirje('ALUSTA');
+
+  /*
+   Taasesitusründe vastase kaitsetokeni (state) genereerimine.
+   Kõigepealt moodusta 16-tärgine juhusõne (tähed-numbrid),
+   mis pannakse küpsisesse
+   */
   var rString = uid(16);
   console.log(' küpsisesse pandav juhusõne: ' + rString);
   /* Arvuta räsi */
@@ -188,8 +195,10 @@ app.get('/auth', (req, res) => {
     .digest('base64');
   console.log(' state: ' + state);
 
-  /* Moodusta autentimispäringu URL, lükkides otspunkti URL-le
-    OpenID Connect protokollikohased query-parameetrid */
+  /*
+   Moodusta autentimispäringu URL, lükkides otspunkti URL-le
+   OpenID Connect protokollikohased query-parameetrid
+   */
   console.log(' autentimispäring:');
   var u = AUTR_OTSPUNKT + qs.stringify({
     redirect_uri: REDIRECT_URL,
@@ -203,7 +212,7 @@ app.get('/auth', (req, res) => {
   /*
    Saada autentimispäring (sirviku ümbersuunamiskorraldusega).
    Ümbersuunamiskorralduse mõjul salvestatakse sirvikusse küpsis.
-  */
+   */
   /* Küpsise suvandid */
   var cOptions = {
     httpOnly: true // Küpsis loetav ainult veebiserverile
@@ -213,11 +222,11 @@ app.get('/auth', (req, res) => {
     .redirect(u);
 });
 
-/*
-  Tagasipöördumispäringu (callback) vastuvõtmine,
-  identsustõendi pärimine ja kontrollimine ning
-  kasutajale esitamine 
-*/
+/**
+ * Tagasipöördumispäringu (callback) vastuvõtmine,
+ * identsustõendi pärimine ja kontrollimine ning
+ * kasutajale esitamine 
+ */
 app.get('/Callback', (req, res) => {
 
   console.log('--- Tagasipöördumispäringu töötlemine:');
@@ -331,7 +340,7 @@ app.get('/Callback', (req, res) => {
           } else {
             console.log(' edukas');
 
-            /* Logimine */
+            /* Logi autentimise edukas lõpp */
             logija.lisaKirje('OK', verifiedJwt.sub);
 
             res
@@ -344,20 +353,19 @@ app.get('/Callback', (req, res) => {
 
 });
 
-/*
-  Kasutusstatistika kuvamine
-*/
+/**
+ * Kasutusstatistika kuvamine
+ */
 app.get('/stat', (req, res) => {
-  console.log('--- Logi lugemine:');
   var options = {
     url: LOGI_URL,
     method: 'GET',
   };
   requestModule(
     options,
-    function (error, response, body) {
+    (error, response, body) => {
       if (error) {
-        console.log(' ebaedukas. Viga: ', error);
+        console.log('Viga logi lugemisel: ', error);
         res
           .render('pages/ebaedu', { veateade: 'Viga logi lugemisel: ' + JSON.stringify(error) });
         return;
@@ -371,7 +379,9 @@ app.get('/stat', (req, res) => {
 
 });
 
-/* Veebiserveri käivitamine */
+/**
+ * Veebiserveri käivitamine 
+ */
 app.listen(app.get('port'), function () {
   console.log('---- Node rakendus käivitatud ----');
 });
