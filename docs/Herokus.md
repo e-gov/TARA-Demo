@@ -12,7 +12,7 @@ TARA-Demo on tööle pandud Heroku pilves. Kui soovite ülespanekut ise läbi te
 &nbsp; | Paigaldage Heroku CLI lokaalsesse masinasse. abi: [Heroku CLI käsud](https://devcenter.heroku.com/articles/using-the-cli)
 `heroku login` | Logige sisse. Liikuge CLI-s (või IDE integreeritud terminalis) git repo kausta. Sisestage `heroku login` (seejärel kasutajanimi + parool)
 `git remote -v` | Vaadake, millega repo on seotud: 
-`git remote`v| Siduge git repo Heroku repoga. abi: [Git raamat](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)
+`git remote rm heroku`<br><br>`git remote add heroku https://git.heroku.com/tara-java.git`| Heroku rakenduse ümbernimetamisel tuleb repo git-side Herokuga uuesti seada. Eemaldage vana side<br><br>ja lisage uus<br><br> abi: [Git raamat](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)
 `git push heroku master` | Laadige rakendus pilve.
 `heroku ps` | Võite vaadata, mitu masinat pilves töötab.
 `heroku open` | Avage rakenduse veebileht. 
