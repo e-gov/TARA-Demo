@@ -14,10 +14,11 @@ TARA-Demo on tööle pandud Heroku pilves. Kui soovite ülespanekut ise läbi te
 `git remote -v` | Vaadake, millega repo on seotud: 
 `git remote rm heroku`<br><br>`git remote add heroku https://git.heroku.com/tara-java.git`| Heroku rakenduse ümbernimetamisel tuleb repo git-side Herokuga uuesti seada. Eemaldage vana side<br><br>ja lisage uus<br><br> abi: [Git raamat](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)
 `git push heroku master` | Laadige rakendus pilve.
+`git push -f heroku master` | Laadige rakendus pilve, kirjutades varasema üle
 `heroku ps` | Võite vaadata, mitu masinat pilves töötab.
 `heroku open` | Avage rakenduse veebileht. 
 `heroku local web` | Võite käivitada rakenduse lokaalselt. abi: [Heroku local](https://devcenter.heroku.com/articles/heroku-local)
 `http://localhost:5000` | Lokaalse kasutajaliidese avamine sirvikus.
-`heroku logs` | Logide vaatamine. 
-`heroku logs --source app` | Ainult rakenduse logi. abi: [Logimisest](https://devcenter.heroku.com/articles/logging) 
+`heroku logs` | Kuva logi 
+`heroku logs --source app` | Kuva ainult rakenduse logi. abi: [Logimisest](https://devcenter.heroku.com/articles/logging) 
 `heroku config`<br> `heroku config:set VAR=väärtus`<br> `heroku config:get VAR`<br> `heroku config:unset VAR`<br> | Seadke keskkonnamuutujad (vajate klientrakenduse salasõna CLIENT_SECRET seadmist). abi: [Configuration variables](https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-config-vars) 
