@@ -11,8 +11,10 @@
 
     <p>
       <a href='https://e-gov.github.io/TARA-Doku/'>TARA </a> on teenus, millega avaliku sektori asutus saab e-teenuses autentida nii Eesti kui ka teisest EL riigist tulnud kasutaja.</p>
+      
+    <p>TARA demo on klienrakendus, mis on ühendatud TARA testteenusega. TARA kaudu on demo ühendatud ka välisriikide eIDAS testteenustega.</p>
 
-    <p>Demo pakub võimalust proovida autentimist testnumbritega, -kaartidega või -seadistustega</p>
+    <p>Demo pakub võimalust proovida autentimist testnumbritega, -kaartidega või -seadistustega. </p>
       
     <p>Vt lähemalt <a href='https://e-gov.github.io/TARA-Doku/Testimine' target='_new'>Autentimisteenus TARA. Testimine</a>.</p>
 
@@ -20,7 +22,7 @@
 
     <p>Proovi näiteks mobiil-ID-ga autentimist:</p>
     
-    <p>1 Kopeeri lõikelauale või jäta meelde testnumber <code>+37200000766</code>. </p>
+    <p>1 Kopeeri lõikelauale või jäta meelde testisiku mobiilinumber <code>+372 00000766</code> ja isikukood <code>60001019906</code>. </p>
 
     <p>2 Ava autentimisdialoog (uuel sakil):
       <a href='/auth' target='_new'>
@@ -28,11 +30,27 @@
       </a>
     </p>
 
+    <p>3 Vali "Mobiil-ID" ja sisesta testisiku isikukood ning mobiilinumber. Vajuta "Jätkan". Testteenus viib autentimise lõpuni (7 s viivitusega).</p>
+
     <p>3 Autentimise läbitegemise järel soovi korral vaata logi (avaneb uuel sakil):
       <a href='/stat' target='_new'>
         <i class="ikoon material-icons">show_chart</i>
       </a>
     </p>
+
+    <hr>
+
+    <p>Proovi eIDAS-autentimist (Eesti)</p>
+
+    <p>1 Vali "eIDAS". Vali Eesti. Järgnevas dialoogis vali "Mobiil ID", seejärel sisesta testnumber +37200000766. Sind autenditakse testisikuna.</p>
+
+    <hr>
+
+    <p>Proovi eIDAS-autentimist (välisriik)</p>
+
+    <p>1 Vali "eIDAS". Vali riik, nt Malta. Järgnevas dialoogis vali "Next", "Next" ja jõuad Malta autentimisteenuseni. </p>
+
+    <hr>
 
     <p>Võid tutvuda TARA serveri identsustõendi allkirjastamise avaliku võtmega (avaneb uuel sakil):
       <a href='/voti' target='_new'>
