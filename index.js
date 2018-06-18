@@ -384,7 +384,7 @@ app.get('/stat', (req, res) => {
 /**
  * Elutukse
  */
-app.get('/heartbeat', () => {
+app.get('/heartbeat', (req, res) => {
   // Koosta elutuksekirje
   var hearbeatRecord = {
     name: "TARA-Demo",
