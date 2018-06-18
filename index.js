@@ -382,6 +382,23 @@ app.get('/stat', (req, res) => {
 });
 
 /**
+ * Elutukse
+ */
+app.get('/heartbeat', () => {
+  // Koosta elutuksekirje
+  var hearbeatRecord = {
+    name: "TARA-Demo",
+    description: "TARA autentimisteenuse demo",
+    status: "UP"
+  };
+  // Saada elutuksekirje
+  res
+    .status(200)
+    .type('application/json')
+    .send(hearbeatRecord);
+});
+
+/**
  * Veebiserveri käivitamine 
  */
 app.listen(app.get('port'), function () {
