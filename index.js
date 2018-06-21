@@ -55,12 +55,10 @@ const IDTOENDI_OTSPUNKT = 'https://tara-test.ria.ee/oidc/token';
 const ISSUER = 'https://tara-test.ria.ee';
 
 /* Klientrakenduse TARA-Demo parameetrid */
-/* Tagasisuunamis-URL */
-// const REDIRECT_URL = 'https://tarademo.herokuapp.com/Callback';
-const REDIRECT_URL = 'https://tarawelcome.herokuapp.com/Callback';
 /* Klientrakenduse identifikaator */
-// const CLIENT_ID = 'ParmaksonResearch';
-const CLIENT_ID = 'TARAWelcome';
+const CLIENT_ID = 'TARA-Demo';
+/* Tagasisuunamis-URL */
+const REDIRECT_URL = 'https://tarademo.herokuapp.com/Callback';
 
 /* Kellade maks lubatud erinevus identsustõendi kontrollimisel */
 const CLOCK_TOLERANCE = 10;
