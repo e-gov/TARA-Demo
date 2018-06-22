@@ -175,12 +175,20 @@ app.get('/', function (req, res) {
 /**
  * Autentimispäringu saatmine
  */
-app.get('/auth', (req, res) => {
+app.get('/auth/:scope', (req, res) => {
 
   console.log('--- Autentimispäringu saatmine:');
 
   /* Logi autentimise alustamine */
   logija.lisaKirje('ALUSTA');
+
+  /* Selgita, kas auth/all või auth/eidas */
+  var scope;
+  if (req.params.scope == 'eidas') {
+    scope = 'openid&eidas';
+  } else {
+    scope = 'openid';
+  }
 
   /*
    Taasesitusründe vastase kaitsetokeni (state) genereerimine.
@@ -202,7 +210,7 @@ app.get('/auth', (req, res) => {
   console.log(' autentimispäring:');
   var u = AUTR_OTSPUNKT + qs.stringify({
     redirect_uri: REDIRECT_URL,
-    scope: 'openid',
+    scope: scope,
     state: state,
     response_type: 'code',
     client_id: CLIENT_ID
