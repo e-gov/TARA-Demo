@@ -184,8 +184,8 @@ app.get('/auth/:scope', (req, res) => {
 
   /* Selgita, kas auth/all või auth/eidas */
   var scope;
-  if (req.params.scope == 'eidas') {
-    scope = 'openid&eidas';
+  if (req.params.scope == 'eidasonly') {
+    scope = 'openid&eidasonly';
   } else {
     scope = 'openid';
   }
