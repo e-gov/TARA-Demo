@@ -29,8 +29,10 @@ const HASH_ALGO = 'sha256';
 */
 const requestModule = require('request');
 
-/* HTTP päringute silumisvahend. */
-require('request-debug')(requestModule);
+/* HTTP päringute silumisvahend.
+  Vajadusel lülita sisse.
+*/
+// require('request-debug')(requestModule);
 
 /* JWK PEM vormingusse teisendamise vahend */
 const jwkToPem = require('jwk-to-pem');
@@ -374,6 +376,8 @@ app.get('/Callback', (req, res) => {
               .render('pages/ebaedu', { veateade: 'Identsustõendi kontrollimisel ilmnes viga: ' + err });
           } else {
             console.log(' edukas');
+            console.log(' ---- Identsustõendi sisu: ',
+              JSON.stringify(verifiedJwt));
 
             /* Logi autentimise edukas lõpp */
             logija.lisaKirje('OK', verifiedJwt.sub);
