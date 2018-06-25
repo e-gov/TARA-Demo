@@ -29,8 +29,8 @@ const HASH_ALGO = 'sha256';
 */
 const requestModule = require('request');
 
-/* HTTP päringute silumisvahend. Praegu välja lülitatud */
-// require('request-debug')(requestModule);
+/* HTTP päringute silumisvahend. */
+require('request-debug')(requestModule);
 
 /* JWK PEM vormingusse teisendamise vahend */
 const jwkToPem = require('jwk-to-pem');
@@ -243,13 +243,14 @@ app.get('/Callback', (req, res) => {
   
   if (req.query.error) {
     const error = req.query.error;
+    const error_description = req.query.error_description;
     console.log(' saadud veateade: ', error);  
     res
       .status(200)
       .render(
         'pages/ebaedu',
         {
-          veateade: error
+          veateade: error + ': ' + error_description
         });
     return;
   }
