@@ -166,6 +166,13 @@ app.get('/voti', function (req, res) {
 });
 
 /**
+ * Kuva "Your first login to Estonia" leht
+ */
+app.get('/first', function (req, res) {
+  res.render('pages/first');
+})
+
+/**
  * Esilehe kuvamine
  */
 app.get('/', function (req, res) {
