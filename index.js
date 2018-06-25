@@ -184,10 +184,13 @@ app.get('/auth/:scope', (req, res) => {
 
   /* Selgita, kas auth/all või auth/eidas */
   var scope;
+  var locale;
   if (req.params.scope == 'eidasonly') {
     scope = 'openid eidasonly';
+    locale = 'en';
   } else {
     scope = 'openid';
+    locale = 'et';
   }
 
   /*
@@ -213,7 +216,8 @@ app.get('/auth/:scope', (req, res) => {
     scope: scope,
     state: state,
     response_type: 'code',
-    client_id: CLIENT_ID
+    client_id: CLIENT_ID,
+    locale: locale
   });
   console.log(u);
 
