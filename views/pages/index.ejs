@@ -12,67 +12,94 @@
     <h1>TARA autentimisteenuse demo</h1>
 
     <p>
-      <a href='https://e-gov.github.io/TARA-Doku/'>TARA </a> on teenus, millega avaliku sektori asutus saab e-teenuses autentida nii Eesti kui ka teisest EL riigist tulnud kasutaja.</p>
-      
-    <p>TARA demo on klientrakendus, mis on ühendatud TARA testteenusega. TARA kaudu on demo ühendatud ka välisriikide eIDAS testteenustega.</p>
-
-    <p>Demo pakub võimalust proovida autentimist testnumbritega, -kaartidega või -seadistustega. </p>
-      
-    <p>Vt lähemalt <a href='https://e-gov.github.io/TARA-Doku/Testimine' target='_new'>Autentimisteenus TARA. Testimine</a>.</p>
-
-    <hr>
-
-    <p>Proovi näiteks mobiil-ID-ga autentimist:</p>
+      TARA demo on klientrakendus, mis on ühendatud TARA testteenusega. TARA kaudu on demo ühendatud ka välisriikide eIDAS testteenustega.
+    </p>
     
-    <p>1 Kopeeri lõikelauale või jäta meelde testisiku mobiilinumber <code>+372 00000766</code> ja isikukood <code>60001019906</code>. </p>
-
-    <p>2 Ava autentimisdialoog (uuel sakil):
-      <a href='/auth/all' target='_new'>
-        <i class="ikoon material-icons">open_in_new</i>
-      </a>
+    <p>
+      <a href='https://e-gov.github.io/TARA-Doku/'>TARA </a> on teenus, millega avaliku sektori asutus saab e-teenuses autentida nii Eesti kui ka teisest EL riigist tulnud kasutaja.
     </p>
 
-    <p>3 Vali <code>Mobiil-ID</code> ja sisesta testisiku isikukood ning mobiilinumber. Vajuta <code>Jätkan</code>. Testteenus viib autentimise automaatselt lõpuni (7 s viivitusega).</p>
-
-    <p>4 Autentimise läbitegemise järel soovi korral vaata logi (avaneb uuel sakil):
-      <a href='/stat' target='_new'>
-        <i class="ikoon material-icons">reorder</i>
-      </a>
+    <p>
+      Demo pakub võimalust proovida autentimist testnumbritega, -kaartidega või -seadistustega. Testnumbrite kohta vt lähemalt <a href='https://e-gov.github.io/TARA-Doku/Testimine' target='_new'>Autentimisteenus TARA. Testimine</a>.
     </p>
 
-    <hr>
-
-    <p>Proovi eIDAS-autentimist (Eesti)</p>
-
-    <p>1 Vali <code>eIDAS</code>. Vali <code>Eesti</code>. Järgnevas dialoogis vali <code>Mobiil ID</code>, seejärel sisesta testnumber <code>+37200000766</code>. Sind autenditakse testisikuna.</p>
-
-    <hr>
-
-    <p>Proovi eIDAS-autentimist (välisriik)</p>
-
-    <p>1 Ava autentimisdialoog (vt ülal). Vali <code>eIDAS</code>. Vali riik, nt <code>Malta</code>. Järgnevas dialoogis vali <code>Next</code>, <code>Next</code> ja jõuad Malta autentimisteenuseni. </p>
-
-    <hr>
-
-    <p>Proovi "eIDAS only" autentimist. TARA võib kasutada ka nii, et TARA autendib ainult välismaalasi. See sobib siis, kui asutusel on olemasolev siseriiklik autentimislahendus, millest ei soovita loobuda. Sellisel juhul võib TARA-st võtta ainult välismaalase autentimise.</p>
-
-    <p> Ava autentimisdialoog "eIDAS only" režiimis (uuel sakil):
-      <a href='/auth/eidasonly' target='_new'>
-        <i class="ikoon material-icons" style='color: tomato;'>open_in_new</i>
-      </a>
+    <p>
+      Demos saad teha järgmist:
     </p>
 
-    <hr>
+    <table>
+      <tr>
+        <td>
+            Proovida mobiil-ID-ga autentimist
+        </td>
+        <td>
+            1 Kopeeri lõikelauale või jäta meelde testisiku mobiilinumber <code>+372 00000766</code> ja isikukood <code>60001019906</code><br>
+            2 Ava autentimisdialoog (uuel sakil): <a href='/auth/all' target='_new'><i class="ikoon material-icons">open_in_new</i></a><br>
+            3 Vali <code>Mobiil-ID</code> ja sisesta testisiku isikukood ning mobiilinumber<br>
+            4 Vajuta <code>Jätkan</code><br>
+            5 Testteenus viib autentimise automaatselt lõpuni (7 s viivitusega).
+        </td>
+      </tr>
+      <tr>
+        <td>
+            Autentimise läbitegemise järel soovi korral vaadata logi
+        </td>
+        <td>
+            (avaneb uuel sakil): <a href='/stat' target='_new'><i class="ikoon material-icons">reorder</i></a>          
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Proovida eIDAS-autentimist (Eesti)
+        </td>
+        <td>
+          1 Ava autentimisdialoog (uuel sakil): <a href='/auth/all' target='_new'><i class="ikoon material-icons">open_in_new</i></a><br>
+          2 Vali <code>eIDAS</code><br>
+          3 Vali <code>Eesti</code> (klõpsa Eesti lipule)<br>
+          4 Järgnevas dialoogis vali <code>Mobiil ID</code><br>
+          5 Sisesta testnumber <code>+37200000766</code><br>
+          6 Oota 7 s. Sind autenditakse testisikuna.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Proovida eIDAS-autentimist (välisriik)
+        </td>
+        <td>
+          1 Ava autentimisdialoog (vt ülal)<br>
+          2 Vali <code>eIDAS</code><br>
+          3 Vali välisriik, nt <code>Malta</code><br>
+          4 Järgnevas dialoogis vali <code>Next</code>, <code>Next</code><br>
+          5 Jõuad Malta autentimisteenuseni.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Proovida "eIDAS only" autentimist. TARA võib kasutada ka nii, et TARA autendib ainult välismaalasi. See sobib siis, kui asutusel on olemasolev siseriiklik autentimislahendus, millest ei soovita loobuda. Sellisel juhul võib TARA-st võtta ainult välismaalase autentimise.
+        </td>
+        <td>
+          1 Ava autentimisdialoog "eIDAS only" režiimis (uuel sakil): <a href='/auth/eidasonly' target='_new'><i class="ikoon material-icons" style='color: tomato;'>open_in_new</i></a><br>
+          2 Kasutusliides lülitub ümber inglise keelele ja ilmuvad "lipukesed". Eesti autentimismeetodeid ei kuvata. 
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Tutvuda TARA serveri identsustõendi allkirjastamise avaliku võtmega
+        </td>
+        <td>
+          <a href='/voti' target='_new'><i class="ikoon material-icons">vpn_key</i></a> (avaneb uuel sakil)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Tutvuda TARA elutukse otspunktiga
+        </td>
+        <td>
+          <a href='/heartbeat' target='_new'>Elutukse otspunkt</a> (avaneb uuel sakil)
+        </td>
+      </tr>
 
-    <p>Võid tutvuda TARA serveri identsustõendi allkirjastamise avaliku võtmega (avaneb uuel sakil):
-      <a href='/voti' target='_new'>
-        <i class="ikoon material-icons">vpn_key</i>
-      </a>
-    </p>
-
-    <hr>
-
-    <p>Teenuse <a href='/heartbeat' target='_new'>elutukse otspunkt</a> (avaneb uuel sakil).</p>
+    </table>
 
     <hr>
 
