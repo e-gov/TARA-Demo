@@ -239,6 +239,21 @@ app.get('/Callback', (req, res) => {
 
   console.log('--- Tagasipöördumispäringu töötlemine:');
 
+  /* Kontrolli, kas TARA saatis veateate */
+  
+  if (req.query.error) {
+    const error = req.query.error;
+    console.log(' saadud veateade: ', error);  
+    res
+      .status(200)
+      .render(
+        'pages/ebaedu',
+        {
+          veateade: error
+        });
+    return;
+  }
+
   /* Võta päringu query-osast TARA poolt saadetud volituskood (authorization code) */
   const code = req.query.code;
   console.log(' saadud volituskood: ', code);
