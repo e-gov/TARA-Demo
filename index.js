@@ -384,7 +384,11 @@ app.get('/Callback', (req, res) => {
 
             res
               .status(200)
-              .render('pages/autenditud', { toend: verifiedJwt });
+              .render('pages/autenditud',
+               {
+                 ilustoend: JSON.stringify(verifiedJwt),
+                 toend: verifiedJwt
+                });
           }
         });
 
