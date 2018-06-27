@@ -10,7 +10,7 @@
 
   <img src='img/LOVID.png' style='width: 80px; margin-top: 1rem;'>
 
-  <h1>TARA autentimisteenuse demo</h1>
+  <p>TARA autentimisteenuse demo</p>
 
   <p>
     TARA demo on klientrakendus, mis on ühendatud TARA testteenusega. TARA kaudu on demo ühendatud ka välisriikide eIDAS testteenustega.
@@ -60,17 +60,83 @@
     </li>
   </ol>
 
-  <h2>Autentimise läbitegemise järel vaadata logi</h2>
+  <h2>Proovida eIDAS-autentimist</h2>
   <ol>
     <li>
-      (avaneb uuel sakil):
-      <a href='/stat' target='_new'>
-        <i class="ikoon material-icons" style='color: tomato;'>reorder</i>
+      Ava autentimisdialoog (uuel sakil):
+      <a href='/auth/all' target='_new'>
+        <i class="ikoon material-icons" style='color: tomato;'>open_in_new</i>
       </a>
+      <br>
+    </li>
+    <li>
+      Vali
+      <code>eIDAS</code>
+      <br>
+    </li>
+    <li>
+      Vali välisriik, nt
+      <code>Malta</code>
+      <br>
+    </li>
+    <li>
+      Järgnevas dialoogis vali
+      <code>Next</code>,
+      <code>Next</code>
+      <br>
+    </li>
+    <li>
+      Jõuad Malta autentimisteenuseni. Autentimise täielikuks läbitegemiseks vajad testisiku andmeid. Vt allpool Tšehhi testisiku andmeid.
     </li>
   </ol>
 
-  <h2>Proovida eIDAS-autentimist (Eesti)</h2>
+  <h2>Proovida "eIDAS only" autentimist</h2>
+  <p>
+    TARA võib kasutada ka nii, et TARA autendib ainult välismaalasi. See sobib siis, kui asutusel on olemasolev siseriiklik autentimislahendus,
+    millest ei soovita loobuda. Sellisel juhul võib TARA-st võtta ainult välismaalase autentimise.
+  </p>
+  <ol>
+    <li>
+      Ava autentimisdialoog "eIDAS only" režiimis (uuel sakil):
+      <a href='/auth/eidasonly' target='_new'>
+        <i class="ikoon material-icons" style='color: tomato;'>open_in_new</i>
+      </a>
+      <br>
+    </li>
+    <li>
+      Kasutusliides lülitub ümber inglise keelele ja ilmuvad "lipukesed". Eesti autentimismeetodeid ei kuvata.
+    </li>
+    <li>
+      Proovi autentimise läbitegemist Tšehhi testkasutajana. Vajuta Tšehhi lipukesele (<code>Czech Republic</code>).
+    </li>
+    <li>
+      Järgneval kahel lehel vajuta <code>Next</code>.
+    </li>
+    <li>
+      Jõuad Tšehhi autentimisteenuse lehele. Vali <code>Testovací profily</code> (testrežiim)
+    </li>
+    <li>
+      Vajuta <code>Přihlásit</code>
+    </li>
+    <li>
+      Vajuta <code>Submit</code>
+    </li>
+    <li>
+      Kui kõik läks õigesti, siis suunatakse sind autenditud testisikuna - <code>PAVLA DVOŘÁKOVÁ</code> TARA-sse tagasi. Näed ka autentimise tulemusena moodustatud identsustõendit.
+    </li>
+  </ol>
+
+  <h2>You're a foreigner? Click here:</h2>
+  <ol>
+    <li>
+      <a href='/first'>Your First Login to Estonia</a>
+    </li>
+  </ol>
+
+  <h2>Proovida välismaa e-teenustele pakutavat Eesti autentimisteenust</h2>
+  <p>
+    Saad läbi mängida kasutusjuhtu, kus eIDAS-taristu kaudu suunatakse kasutaja autentima Eesti autentimisteenusesse.
+  </p>
   <ol>
     <li>
       Ava autentimisdialoog (uuel sakil):
@@ -104,73 +170,6 @@
     </li>
   </ol>
 
-  <h2>Proovida eIDAS-autentimist (välisriik)</h2>
-  <ol>
-    <li>
-      Ava autentimisdialoog (vt ülal)
-      <br>
-    </li>
-    <li>
-      Vali
-      <code>eIDAS</code>
-      <br>
-    </li>
-    <li>
-      Vali välisriik, nt
-      <code>Malta</code>
-      <br>
-    </li>
-    <li>
-      Järgnevas dialoogis vali
-      <code>Next</code>,
-      <code>Next</code>
-      <br>
-    </li>
-    <li>
-      Jõuad Malta autentimisteenuseni.
-    </li>
-  </ol>
-
-  <h2>Proovida "eIDAS only" autentimist</h2>
-  <p>
-    TARA võib kasutada ka nii, et TARA autendib ainult välismaalasi. See sobib siis, kui asutusel on olemasolev siseriiklik autentimislahendus,
-    millest ei soovita loobuda. Sellisel juhul võib TARA-st võtta ainult välismaalase autentimise.
-  </p>
-  <ol>
-    <li>
-      Ava autentimisdialoog "eIDAS only" režiimis (uuel sakil):
-      <a href='/auth/eidasonly' target='_new'>
-        <i class="ikoon material-icons" style='color: tomato;'>open_in_new</i>
-      </a>
-      <br>
-    </li>
-    <li>
-      Kasutusliides lülitub ümber inglise keelele ja ilmuvad "lipukesed". Eesti autentimismeetodeid ei kuvata.
-    </li>
-    <li>
-      Proovi autentimise läbitegemist Tšehhi testkasutajana. Vajuta Tšehhi lipukesele.
-    </li>
-    <li>
-      Järgneval kahel lehel vajuta `Continue`.
-    </li>
-    <li>
-      Jõuad Tšehhi autentimisteenuse lehele. Vali `Testovací profily` (testrežiim)
-    </li>
-    <li>
-      Vajuta `Přihlásit`
-    </li>
-    <li>
-      Kui kõik läks õigesti, siis suunatakse sind autenditud testisikuna - `PAVLA DVOŘÁKOVÁ` TARA-sse tagasi.
-    </li>
-  </ol>
-
-  <h2>You're a foreigner? Click here:</h2>
-  <ol>
-    <li>
-      <a href='/first'>Your First Login to Estonia</a>
-    </li>
-  </ol>
-
   <h2>Tutvuda TARA serveri identsustõendi allkirjastamise avaliku võtmega</h2>
   <ol>
     <li>
@@ -188,6 +187,16 @@
         <i class="ikoon material-icons" style='color: tomato;'>timeline</i>
       </a>
       (avaneb uuel sakil)
+    </li>
+  </ol>
+
+  <h2>Autentimise läbitegemise järel vaadata logi</h2>
+  <ol>
+    <li>
+      (avaneb uuel sakil):
+      <a href='/stat' target='_new'>
+        <i class="ikoon material-icons" style='color: tomato;'>reorder</i>
+      </a>
     </li>
   </ol>
 

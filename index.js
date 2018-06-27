@@ -386,7 +386,7 @@ app.get('/Callback', (req, res) => {
               .status(200)
               .render('pages/autenditud',
                {
-                 ilustoend: JSON.stringify(verifiedJwt),
+                 ilustoend: JSON.stringify(verifiedJwt, null, 2),
                  toend: verifiedJwt
                 });
           }
