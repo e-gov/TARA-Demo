@@ -1,131 +1,215 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <% include ../partials/header.ejs %>
-  </head>
+<head>
+  <% include ../partials/header.ejs %>
+  <title>TARA-Demo</title>
+</head>
 
-  <body>
+<body>
 
-    <img src='img/LOVID.png' style='width: 80px; margin-top: 1rem;'>
+  <img src='img/LOVID.png' style='width: 80px; margin-top: 1rem;'>
 
-    <h1>TARA autentimisteenuse demo</h1>
+  <h1>TARA autentimisteenuse demo</h1>
 
+  <p>
+    TARA demo on klientrakendus, mis on ühendatud TARA testteenusega. TARA kaudu on demo ühendatud ka välisriikide eIDAS testteenustega.
+  </p>
+
+  <p>
+    <a href='https://e-gov.github.io/TARA-Doku/'>TARA </a> on teenus, millega avaliku sektori asutus saab e-teenuses autentida nii Eesti kui ka teisest EL riigist tulnud
+    kasutaja.
+  </p>
+
+  <p>
+    Demo pakub võimalust proovida autentimist testnumbritega, -kaartidega või -seadistustega. Testnumbrite kohta vt lähemalt
+    <a href='https://e-gov.github.io/TARA-Doku/Testimine' target='_new'>Autentimisteenus TARA. Testimine</a>.
+  </p>
+
+  <p>
+    Demos saad teha järgmist:
+  </p>
+
+  <h2>Proovida mobiil-ID-ga autentimist</h2>
+  <ol>
+    <li>
+      Kopeeri lõikelauale või jäta meelde testisiku mobiilinumber
+      <code>+372 00000766</code> ja isikukood
+      <code>60001019906</code>
+      <br>
+    </li>
+    <li>
+      Ava autentimisdialoog (uuel sakil):
+      <a href='/auth/all' target='_new'>
+        <i class="ikoon material-icons" style='color: tomato;'>open_in_new</i>
+      </a>
+      <br>
+    </li>
+    <li>
+      Vali
+      <code>Mobiil-ID</code> ja sisesta testisiku isikukood ning mobiilinumber
+      <br>
+    </li>
+    <li>
+      Vajuta
+      <code>Jätkan</code>
+      <br>
+    </li>
+    <li>
+      Testteenus viib autentimise automaatselt lõpuni (7 s viivitusega).
+    </li>
+  </ol>
+
+  <h2>Autentimise läbitegemise järel vaadata logi</h2>
+  <ol>
+    <li>
+      (avaneb uuel sakil):
+      <a href='/stat' target='_new'>
+        <i class="ikoon material-icons" style='color: tomato;'>reorder</i>
+      </a>
+    </li>
+  </ol>
+
+  <h2>Proovida eIDAS-autentimist (Eesti)</h2>
+  <ol>
+    <li>
+      Ava autentimisdialoog (uuel sakil):
+      <a href='/auth/all' target='_new'>
+        <i class="ikoon material-icons" style='color: tomato;'>open_in_new</i>
+      </a>
+      <br>
+    </li>
+    <li>
+      Vali
+      <code>eIDAS</code>
+      <br>
+    </li>
+    <li>
+      Vali
+      <code>Eesti</code> (klõpsa Eesti lipule)
+      <br>
+    </li>
+    <li>
+      Järgnevas dialoogis vali
+      <code>Mobiil ID</code>
+      <br>
+    </li>
+    <li>
+      Sisesta testnumber
+      <code>+37200000766</code>
+      <br>
+    </li>
+    <li>
+      Oota 7 s. Sind autenditakse testisikuna.
+    </li>
+  </ol>
+
+  <h2>Proovida eIDAS-autentimist (välisriik)</h2>
+  <ol>
+    <li>
+      Ava autentimisdialoog (vt ülal)
+      <br>
+    </li>
+    <li>
+      Vali
+      <code>eIDAS</code>
+      <br>
+    </li>
+    <li>
+      Vali välisriik, nt
+      <code>Malta</code>
+      <br>
+    </li>
+    <li>
+      Järgnevas dialoogis vali
+      <code>Next</code>,
+      <code>Next</code>
+      <br>
+    </li>
+    <li>
+      Jõuad Malta autentimisteenuseni.
+    </li>
+  </ol>
+
+  <h2>Proovida "eIDAS only" autentimist</h2>
+  <p>
+    TARA võib kasutada ka nii, et TARA autendib ainult välismaalasi. See sobib siis, kui asutusel on olemasolev siseriiklik autentimislahendus,
+    millest ei soovita loobuda. Sellisel juhul võib TARA-st võtta ainult välismaalase autentimise.
+  </p>
+  <ol>
+    <li>
+      Ava autentimisdialoog "eIDAS only" režiimis (uuel sakil):
+      <a href='/auth/eidasonly' target='_new'>
+        <i class="ikoon material-icons" style='color: tomato;'>open_in_new</i>
+      </a>
+      <br>
+    </li>
+    <li>
+      Kasutusliides lülitub ümber inglise keelele ja ilmuvad "lipukesed". Eesti autentimismeetodeid ei kuvata.
+    </li>
+    <li>
+      Proovi autentimise läbitegemist Tšehhi testkasutajana. Vajuta Tšehhi lipukesele.
+    </li>
+    <li>
+      Järgneval kahel lehel vajuta `Continue`.
+    </li>
+    <li>
+      Jõuad Tšehhi autentimisteenuse lehele. Vali `Testovací profily` (testrežiim)
+    </li>
+    <li>
+      Vajuta `Přihlásit`
+    </li>
+    <li>
+      Kui kõik läks õigesti, siis suunatakse sind autenditud testisikuna - `PAVLA DVOŘÁKOVÁ` TARA-sse tagasi.
+    </li>
+  </ol>
+
+  <h2>You're a foreigner? Click here:</h2>
+  <ol>
+    <li>
+      <a href='/first'>Your First Login to Estonia</a>
+    </li>
+  </ol>
+
+  <h2>Tutvuda TARA serveri identsustõendi allkirjastamise avaliku võtmega</h2>
+  <ol>
+    <li>
+      <a href='/voti' target='_new'>
+        <i class="ikoon material-icons" style='color: tomato;'>vpn_key</i>
+      </a> (avaneb uuel sakil)
+    </li>
+  </ol>
+
+  <h2>Tutvuda TARA elutukse otspunktiga</h2>
+  <ol>
+    <li>
+      Vajuta:
+      <a href='/heartbeat' target='_new'>
+        <i class="ikoon material-icons" style='color: tomato;'>timeline</i>
+      </a>
+      (avaneb uuel sakil)
+    </li>
+  </ol>
+
+  <hr>
+
+  <p>TARA-Demo on kirjutatud Node.js-s ja majutatud Heroku pilveteenusesse.
+    <a href='https://github.com/e-gov/TARA-Demo'>Lähtekood</a> on avatud ja vabalt kasutatav.
+  </p>
+
+  <p style='margin-top: 3rem;'>
+    <img src='img/Heroku.PNG'>
+    <img src='/img/NodeJS.PNG' style='width: 100px;'>
+    <img src='img/ee_cef_0.png' style='width: 400px;'>
+  </p>
+
+  <div class='jalus'>
     <p>
-      TARA demo on klientrakendus, mis on ühendatud TARA testteenusega. TARA kaudu on demo ühendatud ka välisriikide eIDAS testteenustega.
+      Riigi Infosüsteemi Amet · 2017-2018 ·
+      <a href='https://github.com/e-gov/TARA-Demo' target='_new'>https://github.com/e-gov/TARA-Demo</a>
     </p>
-    
-    <p>
-      <a href='https://e-gov.github.io/TARA-Doku/'>TARA </a> on teenus, millega avaliku sektori asutus saab e-teenuses autentida nii Eesti kui ka teisest EL riigist tulnud kasutaja.
-    </p>
+  </div>
 
-    <p>
-      Demo pakub võimalust proovida autentimist testnumbritega, -kaartidega või -seadistustega. Testnumbrite kohta vt lähemalt <a href='https://e-gov.github.io/TARA-Doku/Testimine' target='_new'>Autentimisteenus TARA. Testimine</a>.
-    </p>
-
-    <p>
-      Demos saad teha järgmist:
-    </p>
-
-    <table>
-      <tr>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          Proovida mobiil-ID-ga autentimist
-        </td>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          1 Kopeeri lõikelauale või jäta meelde testisiku mobiilinumber <code>+372 00000766</code> ja isikukood <code>60001019906</code><br>
-          2 Ava autentimisdialoog (uuel sakil): <a href='/auth/all' target='_new'><i class="ikoon material-icons" style='color: tomato;'>open_in_new</i></a><br>
-          3 Vali <code>Mobiil-ID</code> ja sisesta testisiku isikukood ning mobiilinumber<br>
-          4 Vajuta <code>Jätkan</code><br>
-          5 Testteenus viib autentimise automaatselt lõpuni (7 s viivitusega).
-        </td>
-      </tr>
-      <tr>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          Autentimise läbitegemise järel vaadata logi
-        </td>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          (avaneb uuel sakil): <a href='/stat' target='_new'><i class="ikoon material-icons" style='color: tomato;'>reorder</i></a>          
-        </td>
-      </tr>
-      <tr>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          Proovida eIDAS-autentimist (Eesti)
-        </td>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          1 Ava autentimisdialoog (uuel sakil): <a href='/auth/all' target='_new'><i class="ikoon material-icons" style='color: tomato;'>open_in_new</i></a><br>
-          2 Vali <code>eIDAS</code><br>
-          3 Vali <code>Eesti</code> (klõpsa Eesti lipule)<br>
-          4 Järgnevas dialoogis vali <code>Mobiil ID</code><br>
-          5 Sisesta testnumber <code>+37200000766</code><br>
-          6 Oota 7 s. Sind autenditakse testisikuna.
-        </td>
-      </tr>
-      <tr>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          Proovida eIDAS-autentimist (välisriik)
-        </td>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          1 Ava autentimisdialoog (vt ülal)<br>
-          2 Vali <code>eIDAS</code><br>
-          3 Vali välisriik, nt <code>Malta</code><br>
-          4 Järgnevas dialoogis vali <code>Next</code>, <code>Next</code><br>
-          5 Jõuad Malta autentimisteenuseni.
-        </td>
-      </tr>
-      <tr>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          Proovida "eIDAS only" autentimist. TARA võib kasutada ka nii, et TARA autendib ainult välismaalasi. See sobib siis, kui asutusel on olemasolev siseriiklik autentimislahendus, millest ei soovita loobuda. Sellisel juhul võib TARA-st võtta ainult välismaalase autentimise.
-        </td>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          1 Ava autentimisdialoog "eIDAS only" režiimis (uuel sakil): <a href='/auth/eidasonly' target='_new'><i class="ikoon material-icons" style='color: tomato;'>open_in_new</i></a><br>
-          2 Kasutusliides lülitub ümber inglise keelele ja ilmuvad "lipukesed". Eesti autentimismeetodeid ei kuvata. 
-        </td>
-      </tr>
-      <tr>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          You're a foreigner? Click here:
-        </td>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          <a href='/first'>Your First Login to Estonia</a>
-        </td>
-      </tr>
-      <tr>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          Tutvuda TARA serveri identsustõendi allkirjastamise avaliku võtmega
-        </td>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          <a href='/voti' target='_new'><i class="ikoon material-icons" style='color: tomato;'>vpn_key</i></a> (avaneb uuel sakil)
-        </td>
-      </tr>
-      <tr>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          Tutvuda TARA elutukse otspunktiga
-        </td>
-        <td style="vertical-align:top; border-top: 1px solid gray; margin-top: 1rem;">
-          <a href='/heartbeat' target='_new'><i class="ikoon material-icons" style='color: tomato;'>timeline</i></a></a> (avaneb uuel sakil)
-        </td>
-      </tr>
-
-    </table>
-
-    <hr>
-
-    <p>TARA-Demo on kirjutatud Node.js-s ja majutatud Heroku pilveteenusesse.
-        <a href='https://github.com/e-gov/TARA-Demo'>Lähtekood</a> on avatud ja vabalt kasutatav.
-    </p>
- 
-    <p style='margin-top: 3rem;'>
-      <img src='img/Heroku.PNG'> <img src='/img/NodeJS.PNG' style='width: 100px;'> <img src='img/ee_cef_0.png' style='width: 400px;'>
-    </p>
-
-    <div class='jalus'>
-        <p>
-          Riigi Infosüsteemi Amet · 2017-2018 ·
-          <a href='https://github.com/e-gov/TARA-Demo' target='_new'>https://github.com/e-gov/TARA-Demo</a>
-        </p>
-      </div>
-
-    </body>
+</body>
 
 </html>
