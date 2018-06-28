@@ -29,12 +29,26 @@ h1 {
   font-size: 48px; color: #757575;
 }
 
-a, a:hover, a:active, a:visited {
-  color: 292B2C !important;
-  text-decoration: underline;
-  text-decoration-style: dashed;
-  text-decoration-color: DarkBlue;
+/*#region Lingid */
+a[href] {
+  color: #607D8B;
+  text-decoration: none;
+  border-bottom: 1px dotted #607D8B;
+  padding: 0 1px 0;
+  margin: 0 -1px 0;
 }
+a:visited {
+  border-bottom-color: #607D8B;
+}
+
+a[href]:focus,
+a[href]:hover {
+  background: #607D8B;
+  background: rgba(75%, 75%, 75%, .25);
+  border-bottom-width: 3px;
+  margin-bottom: -2px;
+}
+/*#endregion */
 
 .ok { color: green; }
 .nok { color: Tomato; }
