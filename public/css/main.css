@@ -48,6 +48,13 @@ a[href]:hover {
   border-bottom-width: 3px;
   margin-bottom: -2px;
 }
+
+.ikoonlink,
+.ikoonlink:focus,
+.ikoonlink:hover {
+  border-bottom: none !important;
+  background: transparent !important;;
+}  
 /*#endregion */
 
 .ok { color: green; }
@@ -60,4 +67,8 @@ a[href]:hover {
   padding: 4px;
   font-family: 'Courier New', monospace;
   font-size: 14pt;
+}
+
+.sammud {
+  margin-top: 0; margin-bottom: 3rem;
 }
