@@ -61,11 +61,9 @@ a[href]:hover {
 .nok { color: Tomato; }
 
 .kood {
-  border: 1px dotted Tomato;
-  color: Tomato;
-  border-radius: 4px;
-  padding: 4px;
-  font-family: 'Courier New', monospace;
+  color: black !important;
+  background-color: #f6f8fa; /* nagu GitHubis */
+  font-family: monospace;
   font-size: 14pt;
 }
 
