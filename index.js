@@ -188,9 +188,6 @@ app.get('/auth/:scope', (req, res) => {
 
   console.log('--- Autentimispäringu saatmine:');
 
-  /* Logi autentimise alustamine */
-  logija.lisaKirje('ALUSTA');
-
   /* Selgita, kas auth/all või auth/eidas */
   var scope;
   var locale;
@@ -380,7 +377,12 @@ app.get('/Callback', (req, res) => {
               JSON.stringify(verifiedJwt));
 
             /* Logi autentimise edukas lõpp */
-            logija.lisaKirje('OK', verifiedJwt.sub);
+            logija.lisaKirje(
+              'OK',
+              verifiedJwt.sub,
+              verifiedJwt.profile_attributes.given_name,
+              verifiedJwt.profile_attributes.family_name
+            );
 
             res
               .status(200)
