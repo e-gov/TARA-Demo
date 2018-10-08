@@ -40,11 +40,6 @@ const jwkToPem = require('jwk-to-pem');
 /* Veebitõendi (JWT) töötlusvahend. Kasutame identsustõendi kontrollimisel */
 var jwt = require('jsonwebtoken');
 
-/* Logija */
-const logija = require('./lib/logija.js');
-/* Logi hoidva Google Apps rakenduse URL */
-var LOGI_URL = 'https://script.google.com/macros/s/AKfycbyk1NNbHdgtRZCiNQLAedPOW8THdbLNQRPqZkkSw5VwrWu01Iw/exec';
-
 /**
  * Paigalduse tüübi ja kasutaja salasõna, seejärel
  * ka otspunktide URL-de ja rakenduse parameetrite
@@ -408,14 +403,6 @@ app.get('/Callback', (req, res) => {
             console.log(' ---- Identsustõendi sisu: ',
               JSON.stringify(verifiedJwt));
 
-            /* Logi autentimise edukas lõpp */
-            logija.lisaKirje(
-              'OK',
-              verifiedJwt.sub,
-              verifiedJwt.profile_attributes.given_name,
-              verifiedJwt.profile_attributes.family_name
-            );
-
             res
               .status(200)
               .render('pages/autenditud',
@@ -426,32 +413,6 @@ app.get('/Callback', (req, res) => {
           }
         });
 
-    });
-
-});
-
-/**
- * Demoautentimiste logi (5 viimast) kuvamine
- */
-app.get('/logi', (req, res) => {
-  var options = {
-    url: LOGI_URL,
-    method: 'GET',
-  };
-  requestModule(
-    options,
-    (error, response, body) => {
-      if (error) {
-        console.log('Viga logi lugemisel: ', error);
-        res
-          .render('pages/ebaedu', { veateade: 'Viga logi lugemisel: ' + JSON.stringify(error) });
-        return;
-      }
-      if (response) {
-        console.log(' Logi loetud. statusCode: ', response.statusCode);
-        res
-          .send(body);
-      }
     });
 
 });
