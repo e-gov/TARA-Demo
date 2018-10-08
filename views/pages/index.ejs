@@ -22,11 +22,11 @@
       </span>
     </p>
 
-    {% if (paigalduseTyyp == 'TEST') %}
-      <p>
-        Rakendamise kasutamiseks sisestage salasõna:
-      </p>
-    {% endif %}
+    <p>
+      {% if (paigalduseTyyp == 'TEST') { %}
+        <%= Rakendamise kasutamiseks sisestage salasõna: %>
+      {% } %}
+    </p>
 
     <p>
       <a href='https://e-gov.github.io/TARA-Doku/'>TARA </a> on teenus, millega avaliku sektori asutus saab e-teenuses autentida nii Eesti kui ka
