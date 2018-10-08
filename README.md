@@ -14,7 +14,7 @@ TARA-Demo on arendanud Riigi Infosüsteemi Amet.
 
 TARA-Demo võimaldab:
 - välja kutsuda autentimisteenust TARA
-- vaadata autentimisteenuse TARA seisundit
+- vaadata autentimisteenuse TARA seisundit (elutukse).
 
 TARA-Demo saab ühendada nii TARA test- kui ka toodangukeskkonnaga (vastavalt TEST ja TOODANG paigaldus).
 
@@ -48,7 +48,7 @@ võti v salasõna | otstarve, nõuded, genereerimine jm haldus
 kasutaja salasõna | piirab juurdepääsu TOODANG paigaldusele; tärgijada pikkusega vähemalt 16 tärki; määratakse TOODANG paigaldamisel
 klientrakenduse salasõna | vastavalt TARA nõuetele; antakse klientrakenduse registreerimisel; TEST ja TOODANG paigaldised tuleb eraldi registreerida 
 
-Kõik ülalnimetatud võtmed seatakse seatakse Node.js rakenduse paigaldamisel keskkonnaparameetrina (`process.env`).
+Kõik ülalnimetatud võtmed seatakse Node.js rakenduse paigaldamisel keskkonnaparameetrina (`process.env`).
 
 ### Sõltuvused 
 
@@ -73,13 +73,13 @@ Käsitleme paigaldamist Heroku majutusteenusesse.
 
 1 Loo Heroku konto.
 
-2 Loo Heroku rakendus (_app_), valides asjakohase rakendusenime.
+2 Loo Heroku rakendus (_app_), valides rakendusele asjakohase nime.
 
-3 Registreerige oma rakendus TARA klientrakendusena (RIA protseduur).
+3 Registreeri Herokus loodud rakendus TARA klientrakendusena (tee läbi RIA vastav protseduur).
 
-4 Määrake TARA-Demo repo Heroku rakenduse lähterepoks.
+4 Määra TARA-Demo repo Heroku rakenduse lähterepoks (vt juhiseid käesoleva repo vikis).
 
-5 Seadke Heroku rakenduse keskkonnamuutujad (`Config Vars`):
+5 Sea Heroku rakenduse keskkonnamuutujad (`Config Vars`):
 
 keskkonnamuutuja  | näiteväärtus | selgitus
 ------------------|--------------|-----------
@@ -93,6 +93,6 @@ keskkonnamuutuja  | näiteväärtus | selgitus
 `KASUTAJASALASONA`  | `ChangeIt` | vajalik ainult TOODANG paigalduse puhul
 `REDIRECT_URL`      | `https://tara-demo.herokuapp.com/Callback` | klientrakenduse tagasipöördumis-URL
 
-6 Käivitage rakendus
+6 Käivita rakendus.
 
 
