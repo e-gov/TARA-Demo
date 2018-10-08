@@ -197,11 +197,12 @@ app.get('/', function (req, res) {
  * vastavalt skoobile (scope=openid v eidasonly)
  * ja salasõnale (salasona=..).
  */
-app.get('/auth/:scope', (req, res) => {
+app.get('/auth', (req, res) => {
 
   console.log('--- TARA-Demo server: otspunkt /auth');
 
   var salasona = req.params.salasona;
+  var lihtnescope = req.params.scope;
   console.log('salasona = ' + salasona);
 
   // Kontrolli salasõna
@@ -216,10 +217,13 @@ app.get('/auth/:scope', (req, res) => {
     return;
   }
 
-  /* Selgita, kas auth/all või auth/eidas */
+  /**
+   * Selgita, kas saadud skoop on all või eidas ja moodusta vastavalt
+   * TARA-sse pöördumisel kasutatav skoop
+  */
   var scope;
   var locale;
-  if (req.params.scope == 'eidas') {
+  if (lihtnescope == 'eidas') {
     scope = 'openid eidasonly';
     locale = 'en';
   } else {
