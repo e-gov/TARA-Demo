@@ -3,5 +3,5 @@
 */
 $('#ProoviNupp').click(() => {
   var salasona = $('#Salasona').val();
-  alert(salasona);
+  window.open('https://tara-demo.herokuapp.com/auth?scope=all&salasona=' + salasona);
 });

@@ -45,38 +45,47 @@ const logija = require('./lib/logija.js');
 /* Logi hoidva Google Apps rakenduse URL */
 var LOGI_URL = 'https://script.google.com/macros/s/AKfycbyk1NNbHdgtRZCiNQLAedPOW8THdbLNQRPqZkkSw5VwrWu01Iw/exec';
 
-/* TARA testteenuse otspunktide URL-id */
+/**
+ * Paigalduse tüübi ja kasutaja salasõna, seejärel
+ * ka otspunktide URL-de ja rakenduse parameetrite
+ * sisselugemine Heroku keskkonnamuutujatest.
+ * Keskkonnamuutujates hoiame väärtusi, mis sõltuvad
+ * paigalduse tüübist (TEST, TOODANG).
+*/
+const PAIGALDUSETYYP = (process.env.PAIGALDUSETYYP || 'UNDEFINED');
+const KASUTAJASALASONA = process.env.KASUTAJASALASONA;
+   
+/* TARA otspunktide URL-id */
 /* Identsustõendi allkirjastamise avaliku võtme publitseerimispunkt */
-const AV_VOTME_OTSPUNKT = 'https://tara-test.ria.ee/oidc/jwks';
+const AV_VOTME_OTSPUNKT = process.env.AV_VOTME_OTSPUNKT;
 /* Autoriseerimis- e autentimispäringu vastuvõtu otspunkt*/
-const AUTR_OTSPUNKT = 'https://tara-test.ria.ee/oidc/authorize?';
+const AUTR_OTSPUNKT = process.env.AUTR_OTSPUNKT;
 /* Identsustõendi väljastamise otspunkt */
-const IDTOENDI_OTSPUNKT = 'https://tara-test.ria.ee/oidc/token';
-
-/* Autentimisteenuse TARA olulised parameetrid */
-const ISSUER = 'https://tara-test.ria.ee';
+const IDTOENDI_OTSPUNKT = process.env.IDTOENDI_OTSPUNKT;
+/* TARA olulised parameetrid */
+const ISSUER = process.env.ISSUER;
 
 /* Klientrakenduse TARA-Demo parameetrid */
 /* Klientrakenduse identifikaator */
-const CLIENT_ID = 'TARA-Demo';
+const CLIENT_ID = process.env.CLIENT_ID;
 /* Tagasisuunamis-URL */
-const REDIRECT_URL = 'https://tara-demo.herokuapp.com/Callback';
+const REDIRECT_URL = process.env.REDIRECT_URL;
 
 /* Kellade maks lubatud erinevus identsustõendi kontrollimisel */
 const CLOCK_TOLERANCE = 10;
 
 / TARA identsustõendi allkirjastamise avalik võti PEM-vormingus */
 var avalikVotiPEM;
-/*
-  Päri TARA identsustõendi allkirjastamise avalik võti.
-  Pärime rakenduse käivitamisel üks kord, puhverdame ja 
-  kasutame hiljem kõigis autentimistes. NB! Puhvrit ei
-  värskendata. Tootmiskõlbulikus rakenduses tuleks
-  teostada puhvri värskendamine.
-  Eeldame, et päring võtme publitseerimise otspunkti 
-  jõutakse teha enne, kui kasutaja nupule vajutab. Jah,
-  see on race condition. See on demos puuduseks.
- */
+/**
+ * Päri TARA identsustõendi allkirjastamise avalik võti.
+ * Pärime rakenduse käivitamisel üks kord, puhverdame ja 
+ * kasutame hiljem kõigis autentimistes. NB! Puhvrit ei
+ * värskendata. Tootmiskõlbulikus rakenduses tuleks
+ * teostada puhvri värskendamine.
+ * Eeldame, et päring võtme publitseerimise otspunkti 
+ * jõutakse teha enne, kui kasutaja nupule vajutab. Jah,
+ * see on race condition. See on demos puuduseks.
+*/
 var options = {
   url: AV_VOTME_OTSPUNKT,
   method: 'GET'
@@ -97,11 +106,6 @@ requestModule(
     console.log('Saadud avalik võti: ', avalikVoti);
     avalikVotiPEM = jwkToPem(avalikVoti);
   });
-
-/* Paigalduse tüübi ja kasutaja salasõna sisselugemine
-   Heroku keskkonnamuutujatest */
-const paigalduseTyyp = (process.env.PAIGALDUSETYYP || 'UNDEFINED');
-const kasutajaSalasona = process.env.KASUTAJASALASONA;
 
 /* Veebiserveri ettevalmistamine */
 const app = express();
@@ -184,16 +188,33 @@ app.get('/first', function (req, res) {
  */
 app.get('/', function (req, res) {
   res.render('pages/index', {
-    paigalduseTyyp: paigalduseTyyp
+    paigalduseTyyp: PAIGALDUSETYYP
   });
 });
 
 /**
- * Autentimispäringu saatmine
+ * Autentimispäringu saatmine,
+ * vastavalt skoobile (scope=openid v eidasonly)
+ * ja salasõnale (salasona=..).
  */
 app.get('/auth/:scope', (req, res) => {
 
-  console.log('--- Autentimispäringu saatmine:');
+  console.log('--- TARA-Demo server: otspunkt /auth');
+
+  var salasona = req.params.salasona;
+  console.log('salasona = ' + salasona);
+
+  // Kontrolli salasõna
+  if ((PAIGALDUSETYYP == 'TEST') && (salasona !== KASUTAJASALASONA)) {
+    res
+      .status(200)
+      .render(
+        'pages/ebaedu',
+        {
+          veateade: 'Tagasi lükatud' + ': ' + 'Salasõna puudu või vale'
+        });
+    return;
+  }
 
   /* Selgita, kas auth/all või auth/eidas */
   var scope;
