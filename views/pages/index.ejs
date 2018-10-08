@@ -11,9 +11,22 @@
     <img src='img/LOVID.png' style='width: 80px; margin-top: 1rem; filter: grayscale(100%);'>
 
     <p>
-      TARA demo on TARA testteenusega ühendatud klientrakendus. TARA kaudu on demo ühendatud ka välisriikide
-      eIDAS testteenustega.
+      TARA demo on autentimisteenusega TARA ühendatud klientrakendus. TARA kaudu on demo ühendatud ka välisriikide
+      eIDAS teenustega.
     </p>
+
+    <p>
+      Käesolev paigaldis on ühendatud TARA keskkonnaga:
+      <span class='kood'>
+        <%= paigalduskeskkond %>
+      </span>
+    </p>
+
+    {% if (paigaldustyyp == 'TEST') %}
+      <p>
+        Rakendamise kasutamiseks sisestage salasõna:
+      </p>
+    {% endif %}
 
     <p>
       <a href='https://e-gov.github.io/TARA-Doku/'>TARA </a> on teenus, millega avaliku sektori asutus saab e-teenuses autentida nii Eesti kui ka

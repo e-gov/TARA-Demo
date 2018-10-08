@@ -98,6 +98,11 @@ requestModule(
     avalikVotiPEM = jwkToPem(avalikVoti);
   });
 
+/* Paigalduse tüübi ja kasutaja salasõna sisselugemine
+   Heroku keskkonnamuutujatest */
+const paigalduseTyyp = (process.env.PAIGALDUSETYYP || 'UNDEFINED');
+const kasutajaSalasona = process.env.KASUTAJASALASONA;
+
 /* Veebiserveri ettevalmistamine */
 const app = express();
 app.use(cookieParser());
@@ -178,7 +183,9 @@ app.get('/first', function (req, res) {
  * Esilehe kuvamine
  */
 app.get('/', function (req, res) {
-  res.render('pages/index');
+  res.render('pages/index', {
+    paigaldusetyyp: paigaldusetyyp;
+  });
 });
 
 /**
