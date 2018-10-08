@@ -29,6 +29,10 @@ h1 {
   font-size: 48px; color: #757575;
 }
 
+.nupp {
+  cursor: pointer;
+}
+
 /*#region Lingid */
 a[href] {
   color: #607D8B;
