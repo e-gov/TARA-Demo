@@ -201,9 +201,8 @@ app.get('/auth', (req, res) => {
 
   console.log('--- TARA-Demo server: otspunkt /auth');
 
-  const qOsa = qs.parse(location.search);
-  var salasona = qOsa.salasona;
-  var lihtnescope = qOsa.scope;
+  var salasona = req.query.salasona;
+  var lihtnescope = req.query.scope;
   console.log('salasona = ' + salasona);
 
   // Kontrolli salasõna
