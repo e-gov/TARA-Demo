@@ -23,14 +23,20 @@
     </p>
 
     <% if (paigalduseTyyp == 'TEST') { %>
-      <p>
-        <label class='active'>
-          Kasutamiseks sisestage salasõna: 
-          <input id='Salasona' type='text'>
-        </label>
-      </p>
+      <div style='display: flex; align-items: center;'>
+        <h2>Proovi autentimist:</h2>
+        <div style='margin-left: 1rem;'>
+          <label class='active'>
+            Kasutamiseks sisestage salasõna: 
+            <input id='Salasona' type='text'>
+          </label>
+          <span id='ProoviNupp' class='nupp'>
+            <i class="ikoon material-icons" style='color: DarkGray;'>open_in_new</i>
+          </span>
+        </div>  
+      </div>
     <% } %>
-
+        
     <p>
       <a href='https://e-gov.github.io/TARA-Doku/'>TARA </a> on teenus, millega avaliku sektori asutus saab e-teenuses autentida nii Eesti kui ka
       teisest EL riigist tulnud kasutaja.
