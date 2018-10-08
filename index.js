@@ -206,7 +206,7 @@ app.get('/auth', (req, res) => {
   console.log('salasona = ' + salasona);
 
   // Kontrolli salasõna
-  if ((PAIGALDUSETYYP == 'TEST') && (salasona !== KASUTAJASALASONA)) {
+  if ((PAIGALDUSETYYP == 'TOODANG') && (salasona !== KASUTAJASALASONA)) {
     res
       .status(200)
       .render(
