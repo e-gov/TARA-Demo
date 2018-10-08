@@ -431,9 +431,9 @@ app.get('/Callback', (req, res) => {
 });
 
 /**
- * Kasutusstatistika kuvamine
+ * Demoautentimiste logi (5 viimast) kuvamine
  */
-app.get('/stat', (req, res) => {
+app.get('/logi', (req, res) => {
   var options = {
     url: LOGI_URL,
     method: 'GET',
@@ -457,7 +457,7 @@ app.get('/stat', (req, res) => {
 });
 
 /**
- * Elutukse
+ * Päringu tegemine TARA elutukse otspunkti ja vastuse kuvamine
  */
 app.get('/heartbeat', (req, res) => {
   // Koosta elutuksekirje
