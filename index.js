@@ -418,23 +418,6 @@ app.get('/Callback', (req, res) => {
 });
 
 /**
- * Päringu tegemine TARA elutukse otspunkti ja vastuse kuvamine
- */
-app.get('/heartbeat', (req, res) => {
-  // Koosta elutuksekirje
-  var hearbeatRecord = {
-    name: "TARA-Demo",
-    description: "TARA autentimisteenuse demo",
-    status: "UP"
-  };
-  // Saada elutuksekirje
-  res
-    .status(200)
-    .type('application/json')
-    .send(hearbeatRecord);
-});
-
-/**
  * Veebiserveri käivitamine 
  */
 app.listen(app.get('port'), function () {

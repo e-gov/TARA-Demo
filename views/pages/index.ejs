@@ -22,36 +22,12 @@
     </p>
 
     <p>
-      Kui demo on ühendatud keskkonnaga TEST, siis saate proovida autentimist testnumbritega,
+      Saate proovida autentimist testnumbritega,
       -kaartidega või -seadistustega. Testnumbrite kohta vt lähemalt
       <a href='https://e-gov.github.io/TARA-Doku/Testimine' target='_blank'>Autentimisteenus TARA.
-        Testimine</a>. Keskkonnaga TOODANG ühendatud demos saate autentida ka oma tegeliku
-      identiteediga.
+        Testimine</a>.
     </p>
 
-    <p>
-      Käesolev paigaldis on ühendatud TARA keskkonnaga:
-      <span class='kood'>
-        <%= paigalduseTyyp %>
-      </span>
-    </p>
-
-    <% if (paigalduseTyyp == 'TOODANG') { %>
-    <div style='display: flex; align-items: center;'>
-      <h2>Proovi autentimist:</h2>
-      <div style='margin-left: 1rem;'>
-        <label class='active'>
-          Kasutamiseks sisestage salasõna:
-          <input id='Salasona' type='text'>
-        </label>
-        <span id='ProoviNupp' class='nupp'>
-          <i class="ikoon material-icons" style='color: DarkGray;'>open_in_new</i>
-        </span>
-      </div>
-    </div>
-    <% } %>
-
-    <% if (paigalduseTyyp == 'TEST') { %>
     <p>Proovi:
       <a href="#1">autentimist mobiil-ID-ga</a> ·
       <a href="#2">autentimist Smart-ID-ga</a> ·
@@ -334,22 +310,7 @@
       </li>
     </ol>
 
-    <!-- 8 Vaata logi -->
-    <a id="8"></a>
-    <div style='display: flex; align-items: center;'>
-      <h2>8 Vaata logi</h2>
-      <div style='margin-left: 1rem;'>
-        <a class='ikoonlink' href='/logi' target='_blank'>
-          <i class="ikoon material-icons" style='color: DarkGray;'>open_in_new</i>
-        </a>
-      </div>
-    </div>
-    <p style='margin-top: 0;'>
-      Kuvatakse viimase viie eduka autentimise andmed: autentimise aeg, isikukood, ees- ja
-      perekonnanimi. (Tegu on testandmetega.)
-    </p>
-
-    <!-- 9 Tutvu TARA allkirjavõtmega -->
+    <!-- 8 Tutvu TARA allkirjavõtmega -->
     <a id="9"></a>
     <div style='display: flex; align-items: center;'>
       <h2>9 Tutvu TARA allkirjavõtmega</h2>
@@ -364,25 +325,6 @@
       mille TARA server annab autentimise tulemusena klientrakendusele
       väljastatavale identsustõendile.
     </p>
-
-    <!-- 10 Tutvu TARA elutukse otspunktiga -->
-    <a id="10"></a>
-    <div style='display: flex; align-items: center;'>
-      <h2>10 Kontrolli teenuse ülevalolekut</h2>
-      <div style='margin-left: 1rem;'>
-        <a class='ikoonlink' href='https://tara-test.ria.ee/heartbeat
-        ' target='_blank'>
-          <i class="ikoon material-icons" style='color: DarkGray;'>open_in_new</i>
-        </a>
-      </div>
-    </div>
-    <p style='margin-top: 0; margin-bottom: 2rem;'>
-      Elutukse (<i>heartbeat</i>) otspunkti kaudu pakub TARA masinloetaval kujul teavet oma
-      seisundi kohta. Teile saadetakse
-      JSON-fail, millest näete TARA serveri ja selle komponentide seisundit, versiooninumbrit,
-      käivitamise aega jm.
-    </p>
-    <% } %>
 
     <p style='margin-top: 4rem;'>
       <img src='img/ee_cef_0.png' style='width: 400px;'>
