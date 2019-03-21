@@ -377,8 +377,11 @@ app.get('/Callback', (req, res) => {
       console.log('TARA-Demo: saadud identsustõend: ',
         JSON.stringify(id_token));
 
+      /* Logi saadud HTTP vastuse sisu */
+      console.log('TARA-Demo: saadud HTTP vastus: ' + JSON.stringify(saadudAndmed));
+
       /* Logi saadud võtmeidentifikaator */
-      console.log('TARA-Demo: saadud võtmeidentifikaator: ' + saadudAndmed.kid);
+      console.log('TARA-Demo: saadud võtmeidentifikaator: ' + JSON.stringify(saadudAndmed.kid));
 
       /*
        Identsustõendi kontrollimine. Teegi jsonwebtoken
