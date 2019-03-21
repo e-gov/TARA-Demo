@@ -297,9 +297,6 @@ app.get('/Callback', (req, res) => {
   const code = req.query.code;
   console.log('TARA-Demo: saadud volituskood: ', code);
 
-  /* Logi saadetud võtmeidentifikaator */
-  console.log('TARA-Demo: saadud võtmeidentifikaator: ' + req.query.kid);
-
   /* Võta TARA poolt tagastatud kaitsetokeni state väärtus */
   const returnedState = req.query.state;
   console.log('TARA-Demo: saadud state: ', returnedState);
@@ -379,6 +376,9 @@ app.get('/Callback', (req, res) => {
       var id_token = saadudAndmed.id_token;
       console.log('TARA-Demo: saadud identsustõend: ',
         JSON.stringify(id_token));
+
+      /* Logi saadud võtmeidentifikaator */
+      console.log('TARA-Demo: saadud võtmeidentifikaator: ' + saadudAndmed.kid);
 
       /*
        Identsustõendi kontrollimine. Teegi jsonwebtoken
