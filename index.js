@@ -49,7 +49,7 @@ var jwt = require('jsonwebtoken');
 */
 const PAIGALDUSETYYP = (process.env.PAIGALDUSETYYP || 'UNDEFINED');
 const KASUTAJASALASONA = process.env.KASUTAJASALASONA;
-   
+
 /* TARA otspunktide URL-id */
 /* Identsustõendi allkirjastamise avaliku võtme publitseerimispunkt */
 const AV_VOTME_OTSPUNKT = process.env.AV_VOTME_OTSPUNKT;
@@ -95,7 +95,7 @@ requestModule(
     }
     if (response) {
       console.log('TARA-Demo: avaliku võtme pärimine - statusCode: ',
-       response.statusCode);
+        response.statusCode);
     }
     var saadudVotmed = JSON.parse(body);
     var avalikVoti = saadudVotmed.keys[0];
@@ -278,11 +278,11 @@ app.get('/Callback', (req, res) => {
   console.log('TARA-Demo: tagasisuunamispäringu töötlemine:');
 
   /* Kontrolli, kas TARA saatis veateate */
-  
+
   if (req.query.error) {
     const error = req.query.error;
     const error_description = req.query.error_description;
-    console.log('TARA-Demo: saadud veateade: ', error);  
+    console.log('TARA-Demo: saadud veateade: ', error);
     res
       .status(200)
       .render(
@@ -374,14 +374,8 @@ app.get('/Callback', (req, res) => {
       }
       var saadudAndmed = JSON.parse(body);
       var id_token = saadudAndmed.id_token;
-      console.log('TARA-Demo: saadud identsustõend: ',
-        JSON.stringify(id_token));
-
       /* Logi saadud HTTP vastuse sisu */
       console.log('TARA-Demo: saadud HTTP vastus: ' + JSON.stringify(saadudAndmed));
-
-      /* Logi saadud võtmeidentifikaator */
-      console.log('TARA-Demo: saadud võtmeidentifikaator: ' + JSON.stringify(saadudAndmed.kid));
 
       /*
        Identsustõendi kontrollimine. Teegi jsonwebtoken
@@ -396,7 +390,8 @@ app.get('/Callback', (req, res) => {
         {
           audience: CLIENT_ID, // Tõendi saaja
           issuer: ISSUER, // Tõendi väljaandja
-          clockTolerance: CLOCK_TOLERANCE // Kellade max lubatud erinevus
+          clockTolerance: CLOCK_TOLERANCE, // Kellade max lubatud erinevus
+          complete: true // Väljasta dekodeeritult ka jwt päis ja allkiri
         },
         function (err, verifiedJwt) {
           if (err) {
@@ -404,18 +399,19 @@ app.get('/Callback', (req, res) => {
             console.log(err);
             res
               .status(200)
-              .render('pages/ebaedu', { veateade: 'Identsustõendi kontrollimisel ilmnes viga: ' + err });
+              .render('pages/ebaedu',
+                { veateade: 'Identsustõendi kontrollimisel ilmnes viga: ' + err });
           } else {
-            console.log('TARA-Demo: edukas');
-            console.log('TARA-Demo: identsustõendi sisu: ',
+            console.log('TARA-Demo: tõend kontrollitud');
+            console.log('TARA-Demo: identsustõend (dekodeeritud): ',
               JSON.stringify(verifiedJwt));
 
             res
               .status(200)
               .render('pages/autenditud',
-               {
-                 ilustoend: JSON.stringify(verifiedJwt, null, 2),
-                 toend: verifiedJwt
+                {
+                  ilustoend: JSON.stringify(verifiedJwt, null, 2),
+                  toend: verifiedJwt
                 });
           }
         });
