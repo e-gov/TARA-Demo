@@ -89,16 +89,17 @@ requestModule(
   options,
   function (error, response, body) {
     if (error) {
-      console.log('Viga avaliku võtme pärimisel: ', error);
+      console.log('TARA-Demo: viga avaliku võtme pärimisel: ', error);
       res.send('Viga avaliku võtme pärimisel: ' + JSON.stringify(error));
       return;
     }
     if (response) {
-      console.log('Avaliku võtme pärimine - statusCode: ', response.statusCode);
+      console.log('TARA-Demo: avaliku võtme pärimine - statusCode: ',
+       response.statusCode);
     }
     var saadudVotmed = JSON.parse(body);
     var avalikVoti = saadudVotmed.keys[0];
-    console.log('Saadud avalik võti: ', avalikVoti);
+    console.log('TARA-Demo: saadud avalik võti: ', avalikVoti);
     avalikVotiPEM = jwkToPem(avalikVoti);
   });
 
@@ -145,7 +146,7 @@ const B64_VALUE = new Buffer(CLIENT_ID + ":" + CLIENT_SECRET).toString('base64')
  * ja kuva kasutajale
  */
 app.get('/voti', function (req, res) {
-  console.log('--- TARA identsustõendi allkirjastamise avaliku võtme pärimine:');
+  console.log('TARA-Demo: identsustõendi allkirjastamise avaliku võtme pärimine:');
   var options = {
     url: AV_VOTME_OTSPUNKT,
     method: 'GET'
@@ -154,17 +155,17 @@ app.get('/voti', function (req, res) {
     options,
     (error, response, body) => {
       if (error) {
-        console.log(' ebaedukas. Viga: ', error);
+        console.log('TARA-Demo: ebaedukas. Viga: ', error);
         res
           .render('pages/ebaedu', { veateade: 'Viga avaliku võtme pärimisel: ' + JSON.stringify(error) });
         return;
       }
       if (response) {
-        console.log(' statusCode: ', response.statusCode);
+        console.log('TARA-Demo: statusCode: ', response.statusCode);
       }
       var saadudVotmed = JSON.parse(body);
       var avalikVoti = saadudVotmed.keys[0];
-      console.log(' saadud avalik võti: ', avalikVoti);
+      console.log('TARA-Demo: saadud avalik võti: ', avalikVoti);
       res
         .send('Saadud avalik võti: ' +
           JSON.stringify(avalikVoti));
@@ -194,11 +195,11 @@ app.get('/', function (req, res) {
  */
 app.get('/auth', (req, res) => {
 
-  console.log('--- TARA-Demo server: otspunkt /auth');
+  console.log('TARA-Demo: otspunkt /auth');
 
   var salasona = req.query.salasona;
   var lihtnescope = req.query.scope;
-  console.log('salasona = ' + salasona);
+  console.log('TARA-Demo: salasona = ' + salasona);
 
   // Kontrolli salasõna
   if ((PAIGALDUSETYYP == 'TOODANG') && (salasona !== KASUTAJASALASONA)) {
@@ -232,18 +233,18 @@ app.get('/auth', (req, res) => {
    mis pannakse küpsisesse
    */
   var rString = uid(16);
-  console.log(' küpsisesse pandav juhusõne: ' + rString);
+  console.log('TARA-Demo: küpsisesse pandav juhusõne: ' + rString);
   /* Arvuta räsi */
   var state = crypto.createHash(HASH_ALGO)
     .update(rString)
     .digest('base64');
-  console.log(' state: ' + state);
+  console.log('TARA-Demo: state: ' + state);
 
   /*
    Moodusta autentimispäringu URL, lükkides otspunkti URL-le
    OpenID Connect protokollikohased query-parameetrid
    */
-  console.log(' autentimispäring:');
+  console.log('TARA-Demo: autentimispäring:');
   var u = AUTR_OTSPUNKT + qs.stringify({
     redirect_uri: REDIRECT_URL,
     scope: scope,
@@ -268,20 +269,20 @@ app.get('/auth', (req, res) => {
 });
 
 /**
- * Tagasipöördumispäringu (callback) vastuvõtmine,
+ * Tagasisuunamispäringu (callback) vastuvõtmine,
  * identsustõendi pärimine ja kontrollimine ning
  * kasutajale esitamine 
  */
 app.get('/Callback', (req, res) => {
 
-  console.log('--- Tagasipöördumispäringu töötlemine:');
+  console.log('TARA-Demo: tagasisuunamispäringu töötlemine:');
 
   /* Kontrolli, kas TARA saatis veateate */
   
   if (req.query.error) {
     const error = req.query.error;
     const error_description = req.query.error_description;
-    console.log(' saadud veateade: ', error);  
+    console.log('TARA-Demo: saadud veateade: ', error);  
     res
       .status(200)
       .render(
@@ -294,40 +295,43 @@ app.get('/Callback', (req, res) => {
 
   /* Võta päringu query-osast TARA poolt saadetud volituskood (authorization code) */
   const code = req.query.code;
-  console.log(' saadud volituskood: ', code);
+  console.log('TARA-Demo: saadud volituskood: ', code);
+
+  /* Logi saadetud võtmeidentifikaator */
+  console.log('TARA-Demo: saadud võtmeidentifikaator: ' + req.query.kid);
 
   /* Võta TARA poolt tagastatud kaitsetokeni state väärtus */
   const returnedState = req.query.state;
-  console.log(' saadud state: ', returnedState);
+  console.log('TARA-Demo: saadud state: ', returnedState);
 
   /* Võta päringuga kaasatulnud küpsis */
   if (!req.cookies['TARA-Demo']) {
-    // Tagasipöördumispäringuga ei tulnud küpsist
-    console.log(' viga: Tagasipöördumispäringuga ei tulnud küpsist');
+    // Tagasisuunamispäringuga ei tulnud küpsist
+    console.log('TARA-Demo: viga: Tagasisuunamispäringuga ei tulnud küpsist');
     res
       .status(200)
       .render(
         'pages/ebaedu',
         {
-          veateade: 'Tagasipöördumispäringuga ei tulnud küpsist'
+          veateade: 'Tagasisuunamispäringuga ei tulnud küpsist'
         });
     return;
   };
   var c = req.cookies['TARA-Demo'];
-  console.log(' saadud küpsis: ' + c);
+  console.log('TARA-Demo: saadud küpsis: ' + c);
 
   /*
    Turvaelemendi state kontroll
   */
-  console.log('--- Turvaelemendi state kontroll:');
+  console.log('TARA-Demo: turvaelemendi state kontroll:');
   /* Arvuta räsi */
   var computedState = crypto.createHash(HASH_ALGO)
     .update(c)
     .digest('base64');
-  console.log(' arvutatud state: ' + computedState);
+  console.log('TARA-Demo: arvutatud state: ' + computedState);
   if (computedState != returnedState) {
     // Saadetud ja saanud state väärtused ei ühti
-    console.log(' ebaedukas');
+    console.log('TARA-Demo: ebaedukas');
     res
       .status(200)
       .render(
@@ -337,14 +341,14 @@ app.get('/Callback', (req, res) => {
         });
     return;
   } else {
-    console.log(' edukas');
+    console.log('TARA-Demo: edukas');
   }
 
   /*
    Identsustõendi pärimine, kontroll ja kuvamine,
    request teegi kasutamisega
   */
-  console.log('--- Identsustõendi pärimine:');
+  console.log('TARA-Demo: identsustõendi pärimine:');
   var options = {
     url: IDTOENDI_OTSPUNKT,
     method: 'POST',
@@ -361,7 +365,7 @@ app.get('/Callback', (req, res) => {
     options,
     function (error, response, body) {
       if (error) {
-        console.log(' ebaedukas. Viga: ', error);
+        console.log('TARA-Demo: ebaedukas. Viga: ', error);
         res
           .status(200)
           .render('pages/ebaedu',
@@ -369,11 +373,11 @@ app.get('/Callback', (req, res) => {
         return;
       }
       if (response) {
-        console.log(' edukas. statusCode: ', response.statusCode);
+        console.log('TARA-Demo: edukas. statusCode: ', response.statusCode);
       }
       var saadudAndmed = JSON.parse(body);
       var id_token = saadudAndmed.id_token;
-      console.log(' saadud identsustõend: ',
+      console.log('TARA-Demo: saadud identsustõend: ',
         JSON.stringify(id_token));
 
       /*
@@ -382,7 +386,7 @@ app.get('/Callback', (req, res) => {
        väljaandjat (iss) ja tõendi kehtivust (nbf ja exp).
        Vt https://www.npmjs.com/package/jsonwebtoken
       */
-      console.log('--- Identsustõendi kontrollimine:');
+      console.log('TARA-Demo: identsustõendi kontrollimine:');
       jwt.verify(
         id_token, // Kontrollitav tõend
         avalikVotiPEM, // Allkirja avalik võti
@@ -393,14 +397,14 @@ app.get('/Callback', (req, res) => {
         },
         function (err, verifiedJwt) {
           if (err) {
-            console.log(' ebaedukas');
+            console.log('TARA-Demo: ebaedukas');
             console.log(err);
             res
               .status(200)
               .render('pages/ebaedu', { veateade: 'Identsustõendi kontrollimisel ilmnes viga: ' + err });
           } else {
-            console.log(' edukas');
-            console.log(' ---- Identsustõendi sisu: ',
+            console.log('TARA-Demo: edukas');
+            console.log('TARA-Demo: identsustõendi sisu: ',
               JSON.stringify(verifiedJwt));
 
             res
@@ -438,7 +442,7 @@ app.get('/heartbeat', (req, res) => {
  * Veebiserveri käivitamine 
  */
 app.listen(app.get('port'), function () {
-  console.log('---- Node rakendus käivitatud ----');
+  console.log('TARA-Demo: Node.js rakendus käivitatud ----');
 });
 
 
