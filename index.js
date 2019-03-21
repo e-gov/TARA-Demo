@@ -377,6 +377,11 @@ app.get('/Callback', (req, res) => {
       /* Logi saadud HTTP vastuse sisu */
       console.log('TARA-Demo: saadud HTTP vastus: ' + JSON.stringify(saadudAndmed));
 
+      /* Dekodeeri tõend (ilma allkirjakontrollita) ja logi */
+      var dekToend = jwt.decode(id_token, { complete: true });
+      console.log('TARA-Demo: dekodeeritud tõend: ' +
+        JSON.stringify(dekToend));
+
       /*
        Identsustõendi kontrollimine. Teegi jsonwebtoken
        abil kontrollitakse allkirja, tõendi saajat (aud), tõendi
