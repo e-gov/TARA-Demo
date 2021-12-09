@@ -18,7 +18,7 @@ TARA-Demo võimaldab:
 
 TARA-Demo on mõeldud ühendamiseks eelkõige TARA testkeskkonnaga (TEST paigaldus). Vajadusel saab TARA-Demo ühendada ka toodangukeskkonnaga (TOODANG paigaldus).
 
-Testkeskkonnaga ühendatud TARA-Demo on üles pandud aadressil [https://tarademo.herokuapp.com](https://tarademo.herokuapp.com) ja seda saab kasutada igaüks.
+Testkeskkonnaga ühendatud TARA-Demo on üles pandud aadressil [https://tara-demo.herokuapp.com](https://tara-demo.herokuapp.com) ja seda saab kasutada igaüks.
 
 Toodangukeskkonnaga ühendatud TARA-Demo (kui seda kasutatakse) ei ole avalikkusele avatud.
 
