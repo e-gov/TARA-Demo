@@ -31,14 +31,11 @@
     <p>Proovi:
       <a href="#1">autentimist mobiil-ID-ga</a> ·
       <a href="#2">autentimist Smart-ID-ga</a> ·
-      <a href="#3">autentimist pangalingiga</a> ·
-      <a href="#4">eIDAS-autentimist</a> ·
-      <a href="#5">"eIDAS only" autentimist</a> ·
-      <a href="#6">EU citizen?</a> ·
-      <a href="#7">Eesti autentimisteenust</a> |
-      <a href="#8">Vaata logi</a> ·
-      <a href="#9">Tutvu TARA allkirjavõtmega</a> ·
-      <a href="#10">Kontrolli teenuse ülevalolekut</a>
+      <a href="#3">eIDAS-autentimist</a> ·
+      <a href="#4">"eIDAS only" autentimist</a> ·
+      <a href="#5">EU citizen?</a> ·
+      <a href="#6">Eesti autentimisteenust</a> |
+      <a href="#7">Tutvu TARA allkirjavõtmega</a> ·
     </p>
 
     <!-- 1 Proovi autentimist mobiil-ID-ga -->
@@ -65,7 +62,7 @@
       </li>
       <li>
         Vajuta
-        <code>Jätkan</code>
+        <code>Jätka</code>
         <br>
       </li>
       <li>
@@ -91,12 +88,12 @@
       </li>
       <li>
         Sisesta testisiku isikukood
-        <code>10101010005</code>
+        <code>30303039914</code>
         <br>
       </li>
       <li>
         Vajuta
-        <code>Jätkan</code>
+        <code>Jätka</code>
         <br>
       </li>
       <li>
@@ -104,10 +101,10 @@
       </li>
     </ol>
 
-    <!-- 3 Proovi autentimist pangalingiga -->
+    <!-- 3 Proovi eIDAS-autentimist -->
     <a id="3"></a>
     <div style='display: flex; align-items: center;'>
-      <h2>3 Proovi autentimist pangalingiga</h2>
+      <h2>3 Proovi eIDAS-autentimist</h2>
       <div style='margin-left: 1rem;'>
         <a class='ikoonlink' href='/auth?scope=all' target='_blank'>
           <i class="ikoon material-icons" style='color: DarkGray;'>open_in_new</i>
@@ -117,103 +114,45 @@
     <ol class='sammud'>
       <li>
         Vali
-        <code>Pangalink</code>
+        <code>EU eID</code>
+        <br>
+      </li>
+      <li>
+        Vali rippmenüüst välisriik, nt
+        <code>Tšehhi</code>
+        ja vajuta
+        <code>Jätka</code>
+        <br>
+      </li>
+      <li>
+        Jõuad Tšehhi autentimisteenuseni.
+        Paremal üleval nurgas võimalik keel vahetada inglise keele peale.
         <br>
       </li>
       <li>
         Vali
-        <code>Luminor</code>
+        <code>Testing profiles</code>
+        ja
+        <code>Test Profile High</code>
         <br>
       </li>
       <li>
-        Vali
-        <code>Digivõti</code>
+        Kasutaja suunatakse sisselogimise lehele, kus on eelvalitud testkasutaja.
+        Autentimiseks tuleb vajutada
+        <code>Log In</code>
         <br>
       </li>
       <li>
-        Sisesta kasutajatunnus
-        <code>111111</code>
-        <br>
-      </li>
-      <li>
-        Vajuta
-        <code>Sisene</code>
-        <br>
-      </li>
-      <li>
-        Sisesta vastuskood
-        <code>9999</code>
-        <br>
-      </li>
-      <li>
-        Vajuta
-        <code>Sisene</code>
-        <br>
-      </li>
-      <li>
-        Vajuta veelkord
-        <code>Sisene</code>
-        <br>
-      </li>
-      <li>
-        Testteenus viib autentimise automaatselt lõpuni.
+        Kui kõik läks õigesti, siis suunatakse sind autenditud testisikuna -
+        <code>PAVLA DVOŘÁKOVÁ</code> - TARA-sse tagasi. Näed autentimise tulemusena moodustatud
+        identsustõendit.
       </li>
     </ol>
 
-    <!-- 4 Proovi eIDAS-autentimist -->
+    <!-- 4 Proovi "eIDAS only" autentimist -->
     <a id="4"></a>
     <div style='display: flex; align-items: center;'>
-      <h2>4 Proovi eIDAS-autentimist</h2>
-      <div style='margin-left: 1rem;'>
-        <a class='ikoonlink' href='/auth?scope=all' target='_blank'>
-          <i class="ikoon material-icons" style='color: DarkGray;'>open_in_new</i>
-        </a>
-      </div>
-    </div>
-    <ol class='sammud'>
-      <li>
-        Vali
-        <code>eIDAS</code>
-        <br>
-      </li>
-      <li>
-        Vali välisriik, nt
-        <code>Malta</code>
-        <br>
-      </li>
-      <li>
-        Järgnevas dialoogis vali
-        <code>Next</code>,
-        <code>Next</code>
-        <br>
-      </li>
-      <li>
-        Jõuad Malta autentimisteenuseni. Autentimise täielikuks läbitegemiseks vajad testisiku
-        andmeid. Vt allpool
-        Tšehhi testisiku andmeid.
-      </li>
-    </ol>
-    <p>või</p>
-    <ol class='sammud'>
-      <li>
-        Vali eIDAS testriik
-        <code>CD</code>
-        <br>
-      </li>
-      <li>
-        Järgnev dialoog on automaatne, ainult ühes kohas
-        pead vajutama <code>Submit</code>
-        <br>
-      </li>
-      <li>
-        Sind autenditakse testisikuna Javier Garcia.
-      </li>
-    </ol>
-
-    <!-- 5 Proovi "eIDAS only" autentimist -->
-    <a id="5"></a>
-    <div style='display: flex; align-items: center;'>
-      <h2>5 Proovi "eIDAS only" autentimist</h2>
+      <h2>4 Proovi "eIDAS only" autentimist</h2>
       <div style='margin-left: 1rem;'>
         <a class='ikoonlink' href='/auth?scope=eidas' target='_blank'>
           <i class="ikoon material-icons" style='color: DarkGray;'>open_in_new</i>
@@ -227,27 +166,29 @@
     </p>
     <ol class='sammud'>
       <li>
-        Kasutusliides lülitub ümber inglise keelele. Ilmuvad "lipukesed". Eesti autentimismeetodeid
-        ei kuvata.
+        Vali rippmenüüst välisriik, nt
+        <code>Tšehhi</code>
+        ja vajuta
+        <code>Jätka</code>
+        <br>
+       </li>
+       <li>
+         Jõuad Tšehhi autentimisteenuseni.
+         Paremal üleval nurgas võimalik keel vahetada inglise keelele.
+         <br>
       </li>
       <li>
-        Proovi autentimise läbitegemist Tšehhi testkasutajana. Vajuta
-        <code>Czech Republic</code>.
+        Vali
+        <code>Testing profiles</code>
+        ja
+        <code>Test Profile High</code>
+        <br>
       </li>
       <li>
-        Vajuta <code>Next</code>, <code>Next</code>.
-      </li>
-      <li>
-        Jõuad Tšehhi autentimisteenuse lehele. Vali
-        <code>Testovací profily</code> (testrežiim)
-      </li>
-      <li>
-        Vajuta
-        <code>Přihlásit</code>
-      </li>
-      <li>
-        Vajuta
-        <code>Submit</code>
+        Sind suunatakse sisselogimise lehele, kus on eelvalitud testkasutaja.
+        Autentimiseks tuleb vajutada
+        <code>Log In</code>
+        <br>
       </li>
       <li>
         Kui kõik läks õigesti, siis suunatakse sind autenditud testisikuna -
@@ -256,10 +197,10 @@
       </li>
     </ol>
 
-    <!-- 6 EU citizen? Click here: -->
-    <a id="6"></a>
+    <!-- 5 EU citizen? Click here: -->
+    <a id="5"></a>
     <div style='display: flex; align-items: center;'>
-      <h2>6 EU citizen? Click here:</h2>
+      <h2>5 EU citizen? Click here:</h2>
       <div style='margin-left: 1rem;'>
         <a class='ikoonlink' href='/first' target='_blank'>
           <i class="ikoon material-icons" style='color: DarkGray;'>open_in_new</i>
@@ -270,10 +211,10 @@
       An example of how the service for EU citizen could look like.
     </p>
 
-    <!-- 7 Proovi Eesti autentimisteenust -->
-    <a id="7"></a>
+    <!-- 6 Proovi Eesti autentimisteenust -->
+    <a id="6"></a>
     <div style='display: flex; align-items: center;'>
-      <h2>7 Proovi Eesti autentimisteenust</h2>
+      <h2>6 Proovi Eesti autentimisteenust</h2>
       <div style='margin-left: 1rem;'>
         <a class='ikoonlink' href='/auth?scope=all' target='_blank'>
           <i class="ikoon material-icons" style='color: DarkGray;'>open_in_new</i>
@@ -287,12 +228,13 @@
     <ol class='sammud'>
       <li>
         Vali
-        <code>eIDAS</code>
+        <code>EU eID</code>
         <br>
       </li>
       <li>
-        Vali
-        <code>Eesti</code> (klõpsa Eesti lipule)
+        Vali rippmenüüst
+        <code>Eesti</code> ja vajuta
+        <code>Jätka</code>
         <br>
       </li>
       <li>
@@ -301,8 +243,10 @@
         <br>
       </li>
       <li>
-        Sisesta testnumber
-        <code>+37200000766</code>
+        Sisesta testisiku isikukood
+        <code>60001019906</code>
+        ja testnumber
+        <code>+372 00000766</code>
         <br>
       </li>
       <li>
@@ -310,10 +254,10 @@
       </li>
     </ol>
 
-    <!-- 8 Tutvu TARA allkirjavõtmega -->
-    <a id="9"></a>
+    <!-- 7 Tutvu TARA allkirjavõtmega -->
+    <a id="7"></a>
     <div style='display: flex; align-items: center;'>
-      <h2>9 Tutvu TARA allkirjavõtmega</h2>
+      <h2>7 Tutvu TARA allkirjavõtmega</h2>
       <div style='margin-left: 1rem;'>
         <a class='ikoonlink' href='/voti' target='_blank'>
           <i class="ikoon material-icons" style='color: DarkGray;'>open_in_new</i>
