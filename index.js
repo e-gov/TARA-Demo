@@ -215,16 +215,19 @@ app.get('/auth', (req, res) => {
 
   /**
    * Selgita, kas saadud skoop on all või eidas ja moodusta vastavalt
-   * TARA-sse pöördumisel kasutatav skoop
+   * TARA-sse pöördumisel kasutatav skoop ning tagatistase (tagatistaseme võrdlus identsustõendi kontrollimisel ei ole implementeeritud)
   */
   var scope;
   var locale;
+  var acr_values;
   if (lihtnescope == 'eidas') {
     scope = 'openid eidasonly';
     locale = 'en';
+    acr_values = 'low';
   } else {
     scope = 'openid';
     locale = 'et';
+    acr_values = 'substantial';
   }
 
   /*
@@ -248,6 +251,7 @@ app.get('/auth', (req, res) => {
   var u = AUTR_OTSPUNKT + qs.stringify({
     redirect_uri: REDIRECT_URL,
     scope: scope,
+    acr_values: acr_values,
     state: state,
     response_type: 'code',
     client_id: CLIENT_ID,
