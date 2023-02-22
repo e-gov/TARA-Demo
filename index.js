@@ -215,7 +215,7 @@ app.get('/auth', (req, res) => {
 
   /**
    * Selgita, kas saadud skoop on all või eidas ja moodusta vastavalt
-   * TARA-sse pöördumisel kasutatav skoop ning tagatistase
+   * TARA-sse pöördumisel kasutatav skoop ning tagatistase (tagatistaseme võrdlus identsustõendi kontrollimisel ei ole implementeeritud)
   */
   var scope;
   var locale;
