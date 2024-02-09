@@ -1,4 +1,7 @@
-# TARA-Demo
+# [DEPRECATED] TARA-Demo
+
+> [!CAUTION]
+> **Tarkvara ei ajakohastata. Uuem info asub https://e-gov.github.io/TARA-Doku/Naited lehel.**
 
 ## Ülevaade
 
